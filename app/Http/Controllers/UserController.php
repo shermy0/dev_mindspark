@@ -22,6 +22,30 @@ class UserController extends Controller
         }
     }
 
+    public function kelolaPeminjaman(Request $request)
+    {
+        $query = User::where('role', 'user');
+    
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'LIKE', "%$search%")
+                  ->orWhere('nis', 'LIKE', "%$search%");
+            });
+        }
+    
+        $users = $query->get();
+        return view('peminjaman.kelola-peminjaman', compact('users'));
+    }
+    
+
+    public function formPeminjaman($id)
+    {
+        $user = User::findOrFail($id);
+        return view('peminjaman.form-peminjaman', compact('user'));
+    }
+
+
     public function update(Request $request)
     {
         $user = Auth::user();

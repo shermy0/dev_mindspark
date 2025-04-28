@@ -127,4 +127,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ulasan/{ulasan}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
 });
 
+Route::get('/kelola-peminjaman', [UserController::class, 'kelolaPeminjaman'])->name('kelola-peminjaman');
+Route::get('/form-peminjaman/{id}', [UserController::class, 'formPeminjaman'])->name('form-peminjaman');
+
+
 ?>

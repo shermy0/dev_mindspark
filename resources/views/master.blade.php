@@ -53,6 +53,10 @@
         <a href="{{ route('loaning') }}" class="d-block {{ request()->is('loaning') ? 'active' : '' }}">
             <i class="bi bi-view-list icon-custom"></i> Peminjaman
         </a>
+        <a href="{{ route('kelola-peminjaman') }}" class="d-block {{ request()->is('kelola-peminjaman') || request()->is('form-peminjaman/*') ? 'active' : '' }}">
+            <i class="bi bi-view-list icon-custom"></i> Pinjam Buku
+        </a>
+        
         <a href="{{ route('manage-buku') }}" class="d-block {{ request()->is('manage-buku') ? 'active' : '' }}">
             <i class="bi bi-book icon-custom"></i> Buku
         </a>
