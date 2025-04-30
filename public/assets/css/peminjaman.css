@@ -3,6 +3,12 @@ td{
     font-weight: 500;
 }
 
+label{
+    color: black;
+    font-weight: 500;
+
+}
+
 .judul-peminjaman {
     font-weight: bold;
     font-size: 2rem;

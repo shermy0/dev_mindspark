@@ -116,9 +116,9 @@ Route::get('/favorite', [FavoriteController::class, 'favoriteList'])->name('favo
 //peminjaman
 
 Route::post('/borrow/{id}', [PeminjamanController::class, 'borrow'])->name('borrow');
-Route::get('/loaning', [PeminjamanController::class, 'index'])->name('loaning');
-Route::put('/loaning/{id}', [PeminjamanController::class, 'update'])->name('loaning.update');
-Route::delete('/loaning/{id}', [PeminjamanController::class, 'destroy'])->name('loaning.destroy');
+Route::get('/loaning-list', [PeminjamanController::class, 'index'])->name('loaning-list');
+Route::put('/loaning-list/{id}', [PeminjamanController::class, 'update'])->name('loaning-list.update');
+Route::delete('/loaning-list/{id}', [PeminjamanController::class, 'destroy'])->name('loaning-list.destroy');
 
 // Routes for Ulasan (Reviews)
 Route::middleware(['auth'])->group(function () {
@@ -127,8 +127,23 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ulasan/{ulasan}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
 });
 
+//PEMINJAMAN
 Route::get('/kelola-peminjaman', [UserController::class, 'kelolaPeminjaman'])->name('kelola-peminjaman');
 Route::get('/form-peminjaman/{id}', [UserController::class, 'formPeminjaman'])->name('form-peminjaman');
+Route::get('/ajax/buku', [UserController::class, 'getBukuList'])->name('ajax.buku');
+
+Route::post('/form-peminjaman', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
+// Route::post('/simpan-peminjaman', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
+Route::post('/peminjaman/store', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
+
+Route::post('/simpan-peminjaman', [PeminjamanController::class, 'simpanPeminjaman'])->name('simpan-peminjaman');
+
+
+Route::get('/kelola-pengembalian', [PeminjamanController::class, 'index'])->name('kelola-pengembalian');
+
+// ini buat klik tombol "kembalikan" nanti
+Route::get('/form-pengembalian/{id}', [PeminjamanController::class, 'formPengembalian'])->name('form-pengembalian');
+
 
 
 ?>

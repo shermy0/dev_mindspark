@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Buku;
+
 
 class UserController extends Controller
 {
@@ -45,6 +47,7 @@ class UserController extends Controller
         return view('peminjaman.form-peminjaman', compact('user'));
     }
 
+    
 
     public function update(Request $request)
     {
@@ -78,4 +81,23 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
+
+    //buat nampilin daftar buku di form peminjaman petugas
+
+    public function getBukuList(Request $request)
+    {
+    $search = $request->input('search');
+
+    $query = Buku::query();
+
+    if ($search) {
+        $query->where('NamaBuku', 'like', "%$search%")
+              ->orWhere('penulis', 'like', "%$search%");
+    }
+
+    $bukus = $query->get();
+
+    return response()->json($bukus);
+}
+
 }

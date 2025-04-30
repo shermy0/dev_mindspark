@@ -50,13 +50,13 @@
         <a href="{{ route('dashboard') }}" class="d-block {{ request()->is('dashboard') ? 'active' : '' }}">
             <i class="bi bi-clipboard icon-custom"></i> Dasbor
         </a>
-        <a href="{{ route('loaning') }}" class="d-block {{ request()->is('loaning') ? 'active' : '' }}">
-            <i class="bi bi-view-list icon-custom"></i> Peminjaman
+        <a href="{{ route('kelola-pengembalian') }}" class="d-block {{ request()->is('kelola-pengembalian') ? 'active' : '' }}">
+            <i class="bi bi-view-list icon-custom"></i> Kembalikan Buku
         </a>
         <a href="{{ route('kelola-peminjaman') }}" class="d-block {{ request()->is('kelola-peminjaman') || request()->is('form-peminjaman/*') ? 'active' : '' }}">
             <i class="bi bi-view-list icon-custom"></i> Pinjam Buku
         </a>
-        
+                
         <a href="{{ route('manage-buku') }}" class="d-block {{ request()->is('manage-buku') ? 'active' : '' }}">
             <i class="bi bi-book icon-custom"></i> Buku
         </a>
