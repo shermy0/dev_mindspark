@@ -10,6 +10,7 @@ use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\DashboardController;
@@ -145,6 +146,8 @@ Route::post('/peminjaman', [PeminjamanController::class, 'simpanPeminjaman'])->n
 
 Route::get('/kelola-pengembalian', [PeminjamanController::class, 'kelolaPengembalian'])->name('kelola-pengembalian');
 Route::get('/peminjaman/form-pengembalian/{id}', [PeminjamanController::class, 'formPengembalian'])->name('peminjaman.form-pengembalian');
+
+Route::post('/pengembalian/{peminjaman}', [PengembalianController::class, 'store'])->name('pengembalian.store');
 
 
 

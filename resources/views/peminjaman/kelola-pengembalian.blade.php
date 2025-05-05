@@ -63,18 +63,61 @@
                             </span>
                         </td>
                         <td>
-                            <a href="{{ route('peminjaman.form-pengembalian', $peminjaman->id) }}" class="btn btn-sm btn-primary mt-2">
+                            <button class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalPengembalian-{{ $peminjaman->id }}">
                                 Ganti Status
-                            </a>
+                              </button>
+                                      <!-- Modal -->
+<div class="modal fade" id="modalPengembalian-{{ $peminjaman->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form method="POST" action="{{ route('pengembalian.store', $peminjaman->id) }}">
+        @csrf
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Form Pengembalian</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>NIS:</strong> {{ $peminjaman->user->nis }}</p>
+            <p><strong>Nama:</strong> {{ $peminjaman->user->nama }}</p>
+  
+            <div class="mb-3">
+              <label for="tanggal_kembali" class="form-label">Tanggal Kembali</label>
+              <input type="date" name="tanggal_kembali" class="form-control" required>
+            </div>
+  
+            <div class="mb-3">
+              <label class="form-label">Pilih Buku yang Dikembalikan</label>
+              @foreach($peminjaman->bukus as $buku)
+                @if (!$buku->pivot->tanggal_kembali) {{-- hanya tampilkan yang belum dikembalikan --}}
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="buku_ids[]" value="{{ $buku->id }}" id="buku{{ $buku->id }}">
+                    <label class="form-check-label" for="buku{{ $buku->id }}">
+                      {{ $buku->kode_buku }} - {{ $buku->NamaBuku }}
+                    </label>
+                  </div>
+                @endif
+              @endforeach
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="text-center">Tidak ada data peminjaman</td>
                     </tr>
+                    
                 @endforelse
             </tbody>
-        </table>
+        </table>  
     </div>
 </div>
 @endsection

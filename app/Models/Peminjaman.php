@@ -22,8 +22,9 @@ class Peminjaman extends Model
 
     public function bukus()
     {
-        return $this->belongsToMany(Buku::class, 'peminjaman_bukus', 'peminjaman_id', 'buku_id');
-    }
+        return $this->belongsToMany(Buku::class, 'peminjaman_bukus', 'peminjaman_id', 'buku_id')
+        ->withPivot('tanggal_kembali', 'denda')
+        ->withTimestamps();    }
 
     public function user()
     {
