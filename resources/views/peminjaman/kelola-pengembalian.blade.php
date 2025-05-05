@@ -1,36 +1,80 @@
 @extends('master')
 @section('konten')
+<link rel="stylesheet" href="{{ asset('assets/css/peminjaman.css')}}">
 
-<div class="container">
-    <h1 class="mb-4">Daftar Peminjaman</h1>
+<div class="container mt-4">
+    <h3 class="mb-4">Kelola Pengembalian</h3>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>NIS</th>
-                <th>Nama</th>
-                <th>Kode Buku</th>
-                <th>Judul Buku</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($peminjamans as $peminjaman)
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <form method="GET" action="{{ route('kelola-pengembalian') }}" class="row g-2 mb-4">
+        <div class="col-md-3">
+            <input type="text" name="nama" class="form-control" placeholder="Cari Nama Siswa" value="{{ request('nama') }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="buku" class="form-control" placeholder="Cari Kode atau Judul Buku" value="{{ request('buku') }}">
+        </div>
+        <div class="col-md-2">
+            <select name="sort" class="form-select">
+                <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
+                <option value="terlama" {{ request('sort') == 'terlama' ? 'selected' : '' }}>Terlama</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="status" class="form-select">
+                <option value="">Semua Status</option>
+                <option value="dipinjam" {{ request('status') == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                <option value="dikembalikan" {{ request('status') == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-dark">
                 <tr>
-                    <td>{{ $peminjaman->user->nis }}</td>
-                    <td>{{ $peminjaman->user->nama }}</td>
-                    <td>{{ $peminjaman->buku->kode_buku }}</td>
-                    <td>{{ $peminjaman->buku->NamaBuku }}</td>
-                    <td>
-                        @if($peminjaman->StatusPeminjaman == 'dipinjam')
-                            <a href="{{ route('peminjaman.formPengembalian', $peminjaman->id) }}" class="btn btn-primary btn-sm">Kembalikan</a>
-                        @else
-                            <span class="badge bg-success">Sudah Dikembalikan</span>
-                        @endif
-                    </td>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Kode & Judul Buku</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @forelse($peminjamans as $peminjaman)
+                    <tr>
+                        <td>{{ $peminjaman->user->nis ?? '-' }}</td>
+                        <td>{{ $peminjaman->user->nama ?? '-' }}</td>
+                        <td>
+                            <ul class="mb-0">
+                                @foreach($peminjaman->bukus as $buku)
+                                    <li><strong>{{ $buku->kode_buku }}</strong> - {{ $buku->NamaBuku }}</li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>
+                            <span class="badge bg-{{ $peminjaman->status_peminjaman == 'dipinjam' ? 'warning' : 'success' }}">
+                                {{ ucfirst($peminjaman->status_peminjaman) }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('peminjaman.form-pengembalian', $peminjaman->id) }}" class="btn btn-sm btn-primary mt-2">
+                                Ganti Status
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada data peminjaman</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

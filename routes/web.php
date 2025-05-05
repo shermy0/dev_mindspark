@@ -134,15 +134,17 @@ Route::get('/ajax/buku', [UserController::class, 'getBukuList'])->name('ajax.buk
 
 Route::post('/form-peminjaman', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
 // Route::post('/simpan-peminjaman', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
-Route::post('/peminjaman/store', [PeminjamanController::class, 'store'])->name('simpan-peminjaman');
 
 Route::post('/simpan-peminjaman', [PeminjamanController::class, 'simpanPeminjaman'])->name('simpan-peminjaman');
 
 
-Route::get('/kelola-pengembalian', [PeminjamanController::class, 'index'])->name('kelola-pengembalian');
+// Route::get('/kelola-pengembalian', [PeminjamanController::class, 'index'])->name('kelola-pengembalian');
 
 // ini buat klik tombol "kembalikan" nanti
-Route::get('/form-pengembalian/{id}', [PeminjamanController::class, 'formPengembalian'])->name('form-pengembalian');
+Route::post('/peminjaman', [PeminjamanController::class, 'simpanPeminjaman'])->name('simpan-peminjaman');
+
+Route::get('/kelola-pengembalian', [PeminjamanController::class, 'kelolaPengembalian'])->name('kelola-pengembalian');
+Route::get('/peminjaman/form-pengembalian/{id}', [PeminjamanController::class, 'formPengembalian'])->name('peminjaman.form-pengembalian');
 
 
 

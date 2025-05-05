@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     col.innerHTML = `
                         <div class="card h-100">
-                            <img src="/path/to/covers/${buku.CoverBuku}" class="card-img-top" alt="${buku.NamaBuku}">
+                            <img src="/storage/covers/${buku.CoverBuku}" class="card-img-top" alt="${buku.NamaBuku}">
                             <div class="card-body">
                                 <h5 class="card-title">${buku.NamaBuku}</h5>
                                 <p class="card-text"><small>${buku.penulis}</small></p>
@@ -191,11 +191,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('form').addEventListener('submit', function (e) {
     const bukuIds = JSON.parse(localStorage.getItem('selectedBooks')).map(buku => buku.id);
     const bukuInputs = document.querySelectorAll('input[name="buku_id[]"]');
+    const selectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
 
-    // Hapus semua input buku_id lama
+    if (selectedBooks.length === 0) {
+        e.preventDefault();
+        alert("Silakan pilih minimal 1 buku sebelum menyelesaikan peminjaman.");
+        return;
+    }
+
+    // Remove all previous buku_id inputs
     bukuInputs.forEach(input => input.remove());
 
-    // Tambahkan input buku_id baru dari localStorage
+    // Add new buku_id inputs from localStorage
     bukuIds.forEach(id => {
         const input = document.createElement('input');
         input.type = 'hidden';
@@ -203,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         input.value = id;
         this.appendChild(input);
     });
+    localStorage.removeItem('selectedBooks');
 });
 
 
