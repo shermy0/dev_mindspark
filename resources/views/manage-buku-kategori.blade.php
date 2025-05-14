@@ -2,6 +2,8 @@
 
 @section('konten')
 <link rel="stylesheet" href="{{ asset('css/kategoribuku.css') }}">
+<!-- Add the DataTable CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
 <div class="container">
     <h2 class="mb-4">Kelola Kategori Buku</h2>
@@ -10,7 +12,8 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-striped mt-4">
+    <!-- Add a class to the table -->
+    <table class="bukuTable table table-striped mt-4">
         <thead>
             <tr>
                 <th>ID</th>
@@ -71,4 +74,16 @@
         </tbody>
     </table>
 </div>
+
+<!-- Add jQuery and DataTable JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script>
+    // Initialize DataTable
+    $(document).ready(function() {
+        $('.bukuTable').DataTable();
+    });
+</script>
+
 @endsection

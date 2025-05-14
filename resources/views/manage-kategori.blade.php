@@ -2,6 +2,8 @@
 
 @section('konten')
 <link rel="stylesheet" href="{{ asset('css/kategoribuku.css') }}">
+<!-- Add the DataTable CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
 <div class="container">
     <h2 class="mb-4">Manage Kategori</h2>
@@ -19,7 +21,8 @@
         <button type="submit" class="btn btn-primary">Tambah Kategori</button>
     </form>
 
-    <table class="table table-striped mt-4">
+    <!-- Add a class to your table -->
+    <table class="table table-striped mt-4" id="kategoriTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -44,4 +47,15 @@
         </tbody>
     </table>
 </div>
+
+<!-- Add jQuery and DataTable JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script>
+    // Initialize the DataTable
+    $(document).ready(function() {
+        $('#kategoriTable').DataTable();
+    });
+</script>
 @endsection
