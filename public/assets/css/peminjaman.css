@@ -46,3 +46,10 @@ h3, label, td{
     margin-top: 10px;
     font-weight: 500;
 }
+
+.borrow-field {
+    color: rgb(231, 185, 0);
+}
+.return-field {
+    color: rgb(0, 117, 51);
+}
