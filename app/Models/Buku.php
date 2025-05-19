@@ -48,10 +48,13 @@ class Buku extends Model
         return $this->hasMany(Favorit::class, 'BukuID');
     }
 
-// Relasi ke model Peminjaman
-public function peminjaman()
-{
-    return $this->hasMany(Peminjaman::class, 'BukuID');
-}
+    // Relasi ke model Peminjaman
+    public function peminjamans()
+    {
+        return $this->belongsToMany(Peminjaman::class, 'peminjaman_bukus', 'buku_id', 'peminjaman_id')
+                    ->withPivot('tanggal_kembali', 'denda')
+                    ->withTimestamps();
+    }
+    
 
 }

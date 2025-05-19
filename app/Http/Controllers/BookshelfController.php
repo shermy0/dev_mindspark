@@ -6,22 +6,21 @@ use App\Models\Peminjaman;
 
 class BookshelfController extends Controller
 {
-    public function index()
-    {
-        $userId = auth()->user()->id;
+public function index()
+{
+    $userId = auth()->user()->id;
 
-        // Ambil buku yang masih dipinjam
-        $borrowedBooks = Peminjaman::where('UserID', $userId)
-            ->where('StatusPeminjaman', 'borrowed')
-            ->with('buku')
-            ->get();
+    $borrowedBooks = Peminjaman::where('user_id', $userId)
+        ->where('status_peminjaman', 'Dipinjam') 
+        ->with('bukus')
+        ->get();
 
-        // Ambil buku yang sudah dikembalikan
-        $returnedBooks = Peminjaman::where('UserID', $userId)
-            ->where('StatusPeminjaman', 'returned')
-            ->with('buku')
-            ->get();
+    $returnedBooks = Peminjaman::where('user_id', $userId)
+        ->where('status_peminjaman', 'Dikembalikan') 
+        ->with('bukus')
+        ->get();
 
-        return view('bookshelf', compact('borrowedBooks', 'returnedBooks'));
-    }
+    return view('bookshelf', compact('borrowedBooks', 'returnedBooks'));
+}
+
 }

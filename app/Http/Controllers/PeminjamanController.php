@@ -7,66 +7,72 @@ use App\Models\Peminjaman;
 
 class PeminjamanController extends Controller
 {
-    public function borrow($id)
-    {
-        // Cek ulang jika buku sudah dipinjam oleh user
-        $exists = Peminjaman::where('UserID', auth()->user()->id)
-                    ->where('BukuID', $id)
-                    ->where('StatusPeminjaman', 'borrowed')
-                    ->exists();
+// In your PeminjamanController
+public function simpanPeminjaman(Request $request)
+{
+    // Validation
+    $request->validate([
+        'tanggal_pinjam' => 'required|date',
+        'tanggal_jatuh_tempo' => 'required|date',
+        'buku_id' => 'required|array', // Ensure buku_id is an array
+        'buku_id.*' => 'exists:bukus,id', // Validate that each buku_id exists in the buku table
+    ]);
 
-        if ($exists) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have already borrowed this book.'
-            ]);
-        }
+    // Create a new peminjaman record
+    $peminjaman = Peminjaman::create([
+        'user_id' => $request->UserID,
+        'tanggal_pinjam' => $request->tanggal_pinjam,
+        'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
+    ]);
 
-        // Simpan data peminjaman baru
-        $peminjaman = new Peminjaman();
-        $peminjaman->UserID = auth()->user()->id;
-        $peminjaman->BukuID = $id;
-        $peminjaman->StatusPeminjaman = 'borrowed';
-        $peminjaman->TanggalPeminjaman = now();
-        $peminjaman->save();
+    // Attach buku to the peminjaman (assuming many-to-many relationship)
+    $peminjaman->bukus()->sync($request->buku_id);
 
-        return redirect()->route('bookshelf')->with('success', 'Buku berhasil dipinjam!');
-    }
-
-    public function update(Request $request, $id)
-    {
-        if (!in_array(auth()->user()->role, ['petugas', 'administrator'])) {
-            return response()->json(['success' => false, 'message' => 'Unauthorized.']);
-        }
-        
-        $request->validate([
-            'StatusPeminjaman' => 'required|in:borrowed,returned'
-        ]);
-
-        $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->StatusPeminjaman = $request->StatusPeminjaman;
-
-        // Jika status dikembalikan, catat waktu pengembalian
-        if ($request->StatusPeminjaman === 'returned') {
-            $peminjaman->TanggalPengembalian = now();
-        }
-
-        $peminjaman->save();
-
-        return redirect()->route('loaning')->with('success', 'Status updated successfully.');
-    }
-
-    public function showForm($id)
-    {
-        $peminjaman = Peminjaman::findOrFail($id);
-
-        return view('peminjaman.edit', compact('peminjaman'));
-    }
-    public function index()
-    {
-        $peminjaman = Peminjaman::with(['user', 'buku'])->get();
-        return view('loaning', compact('peminjaman'));
-    }
     
+    return redirect()->route('kelola-pengembalian')->with('success', 'Peminjaman berhasil!');
+}
+
+public function kelolaPengembalian(Request $request)
+{
+    $query = Peminjaman::with(['user', 'bukus']);
+
+    // Filter status
+    if ($request->status) {
+        $query->where('status_peminjaman', $request->status);
+    }
+
+    // Search berdasarkan nama
+    if ($request->nama) {
+        $query->whereHas('user', function($q) use ($request) {
+            $q->where('nama', 'like', '%' . $request->nama . '%');
+        });
+    }
+
+    // Search berdasarkan kode atau judul buku
+    if ($request->buku) {
+        $query->whereHas('bukus', function($q) use ($request) {
+            $q->where('kode_buku', 'like', '%' . $request->buku . '%')
+              ->orWhere('NamaBuku', 'like', '%' . $request->buku . '%');
+        });
+    }
+
+    // Sort berdasarkan tanggal terbaru/terlama
+    if ($request->sort == 'terlama') {
+        $query->orderBy('tanggal_pinjam', 'asc');
+    } else {
+        $query->orderBy('tanggal_pinjam', 'desc'); // default terbaru
+    }
+
+    $peminjamans = $query->get();
+
+    return view('peminjaman.kelola-pengembalian', compact('peminjamans'));
+}
+
+public function formPengembalian($id)
+{
+    $peminjaman = Peminjaman::with('bukus', 'user')->findOrFail($id);
+    return view('peminjaman.form-pengembalian', compact('peminjaman'));
+}
+
 
 }
