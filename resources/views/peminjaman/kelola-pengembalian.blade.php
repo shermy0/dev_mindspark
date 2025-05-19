@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/peminjaman.css')}}">
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
 <div class="container mt-4">
     <h3 class="mb-4">Kelola Pengembalian</h3>
@@ -12,30 +12,24 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form method="GET" action="{{ route('kelola-pengembalian') }}" class="row g-2 mb-4">
+  <div class="container">
+    {{-- FILTER --}}
+    <div class="row g-2 mb-4">
         <div class="col-md-3">
-            <input type="text" name="nama" class="form-control" placeholder="Cari Nama Siswa" value="{{ request('nama') }}">
+            <input type="text" id="filterNama" class="form-control" placeholder="Cari Nama Siswa">
         </div>
         <div class="col-md-3">
-            <input type="text" name="buku" class="form-control" placeholder="Cari Kode atau Judul Buku" value="{{ request('buku') }}">
+            <input type="text" id="filterBuku" class="form-control" placeholder="Cari Kode atau Judul Buku">
         </div>
         <div class="col-md-2">
-            <select name="sort" class="form-select">
-                <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
-                <option value="terlama" {{ request('sort') == 'terlama' ? 'selected' : '' }}>Terlama</option>
+            <select id="filterStatus" class="form-select">
+                <option value="">Semua Status</option>
+                <option value="dipinjam">Dipinjam</option>
+                <option value="dikembalikan">Dikembalikan</option>
+                <option value="terlambat">Terlambat</option>
             </select>
         </div>
-        <div class="col-md-2">
-            <select name="status" class="form-select">
-                <option value="">Semua Status</option>
-                <option value="dipinjam" {{ request('status') == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                <option value="dikembalikan" {{ request('status') == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
-                                            </select>
-        </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Filter</button>
-        </div>
-    </form>
+    </div>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle datatable">
@@ -58,12 +52,26 @@
 <td>
     <ul class="mb-0">
         @forelse($peminjaman->bukus->whereNull('pivot.tanggal_kembali') as $buku)
-            <li>{{ $buku->kode_buku }} - {{ $buku->NamaBuku }}</li>
+            @php
+                $jatuhTempo = \Carbon\Carbon::parse($peminjaman->tanggal_jatuh_tempo);
+                $terlambat = now()->gt($jatuhTempo);
+            @endphp
+            <li>
+                {{ $buku->kode_buku }} - {{ $buku->NamaBuku }}<br>
+                <small class="text-muted">
+                    Pinjam: {{ \Carbon\Carbon::parse($peminjaman->tanggal_pinjam)->format('d M Y') }}<br>
+                    Jatuh Tempo: {{ $jatuhTempo->format('d M Y') }}
+                </small><br>
+                @if ($terlambat)
+                    <span class="badge bg-danger">Terlambat</span>
+                @endif
+            </li>
         @empty
             <li><em>Tidak ada</em></li>
         @endforelse
     </ul>
 </td>
+
 
 <!-- Buku Dikembalikan -->
 <td>
@@ -71,7 +79,7 @@
         @forelse($peminjaman->bukus->whereNotNull('pivot.tanggal_kembali') as $buku)
             <li>
                 {{ $buku->kode_buku }} - {{ $buku->NamaBuku }}<br>
-                <small class="text-muted">Kembali: {{ $buku->pivot->tanggal_kembali }}</small><br>
+                <small class="text-muted">Kembali: {{ \Carbon\Carbon::parse($buku->pivot->tanggal_kembali)->format('d M Y') }}</small><br>
                 <small class="text-danger">Denda: Rp{{ number_format($buku->pivot->denda, 0, ',', '.') }}</small>
             </li>
         @empty
@@ -181,6 +189,10 @@
 <!-- jQuery & DataTables JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
 <script>
 function hitungHariKerja(startDate, endDate) {
     let count = 0;
@@ -272,12 +284,50 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-//DATA TABLE
-$(document).ready(function() {
-    $('.datatable').DataTable({
-        searching: false
+//FILTER PAKAI SERVER SIDE DATA TABLES
+    $(document).ready(function () {
+        const table = $('.datatable').DataTable({
+            order: [[0, 'desc']], // Urutkan ID paling baru
+        });
+
+        // Nama siswa
+        $('#filterNama').on('keyup', function () {
+             // Reset filter status dulu supaya filter buku jalan dengan benar
+            $('#filterStatus').val('');  // Reset dropdown status
+            table.column(1).search(this.value).draw();
+        });
+
+        $('#filterBuku').on('keyup', function () {
+            // Reset filter status dulu supaya filter buku jalan dengan benar
+            $('#filterStatus').val('');  // Reset dropdown status
+            table.column(2).search(this.value).draw();
+            table.column(3).search(this.value).draw();
+            // Reset kolom status agar tidak mengganggu
+            table.column(4).search('');
+        });
+
+
+       $('#filterStatus').on('change', function () {
+        // Reset filter di kolom 2 dan 4 supaya tidak saling tumpang tindih
+        table.column(2).search('');
+        table.column(4).search('');
+
+        const val = $(this).val();
+
+        if (val === '') {
+            // Jika pilih "Semua Status", reset semua filter
+            table.draw();
+        } else if (val === 'terlambat') {
+            // Filter status terlambat di kolom Buku Dipinjam (kolom 2)
+            table.column(2).search('Terlambat', true, false).draw();
+        } else {
+            // Filter status "dipinjam" atau "dikembalikan" di kolom Status Keseluruhan (kolom 4)
+            table.column(4).search(val, true, false).draw();
+        }
     });
+
 });
+
 
 </script>
 @endsection
