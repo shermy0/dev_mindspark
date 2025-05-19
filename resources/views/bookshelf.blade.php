@@ -118,7 +118,7 @@
                     <div class="info mt-3">
                         <p>Dipinjam Pada: <strong>{{ \Carbon\Carbon::parse($pinjam->tanggal_pinjam)->format('Y-m-d') }}</strong></p>
                         <p>Dikembalikan Pada: <strong>{{ optional($buku->pivot)->tanggal_kembali ?? '-' }}</strong></p>
-                        <p>Denda: <strong>Rp {{ number_format($buku->pivot->denda, 0, ',', '.') }}</strong></p>
+                        <p class="text-danger">Denda: <strong>Rp {{ number_format($buku->pivot->denda, 0, ',', '.') }}</strong></p>
                     </div>
                 </div>
             </div>
@@ -169,12 +169,6 @@
         wrapper.classList.remove('body-borrowed', 'body-returned');
         wrapper.classList.add(tab === 'borrowed' ? 'body-borrowed' : 'body-returned');
     }
-    function showPopup(hari, denda) {
-    document.getElementById('popupText').innerText = `Kamu terlambat mengembalikan buku selama ${hari} hari dan harus membayar denda sebesar Rp${denda}, mohon segera kembalikan buku jika ingin diperpanjang agar bisa dipinjam kembali.`;
-    document.getElementById('popupDenda').style.display = 'flex';
-    }
-    function closePopup() {
-        document.getElementById('popupDenda').style.display = 'none';
-    }
+
 </script>
 @endsection
