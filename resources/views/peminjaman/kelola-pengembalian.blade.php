@@ -1,6 +1,9 @@
 @extends('master')
 @section('konten')
 <link rel="stylesheet" href="{{ asset('assets/css/peminjaman.css')}}">
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 
 <div class="container mt-4">
     <h3 class="mb-4">Kelola Pengembalian</h3>
@@ -35,12 +38,13 @@
     </form>
 
     <div class="table-responsive">
-        <table class="table table-bordered align-middle">
+        <table class="table table-bordered table-striped align-middle datatable">
             <thead class="table-dark">
                 <tr>
                     <th>NIS</th>
                     <th>Nama</th>
-                    <th>Kode & Judul Buku</th>
+                    <th>Buku Dipinjam</th>
+                    <th>Buku Dikembalikan</th>
                     <th>Status Keseluruhan</th>
                     <th>Aksi</th>
                 </tr>
@@ -50,35 +54,32 @@
                     <tr>
                         <td>{{ $peminjaman->user->nis ?? '-' }}</td>
                         <td>{{ $peminjaman->user->nama ?? '-' }}</td>
-                        <td>
-                          <div class="mb-2 borrow-field">
-                              <strong>Buku Dipinjam:</strong>
-                              <ul class="mb-1">
-                                  @forelse($peminjaman->bukus->whereNull('pivot.tanggal_kembali') as $buku)
-                                      <li>{{ $buku->kode_buku }} - {{ $buku->NamaBuku }}</li>
-                                  @empty
-                                      <li><em>Tidak ada</em></li>
-                                  @endforelse
-                              </ul>
-                          </div>
-                      
-                          <div class="return-field">
-                              <strong>Buku Dikembalikan:</strong>
-                              <ul class="mb-0">
-                                  @forelse($peminjaman->bukus->whereNotNull('pivot.tanggal_kembali') as $buku)
-                                  <li>
-                                    {{ $buku->kode_buku }} - {{ $buku->NamaBuku }}
-                                    <br>
-                                    <small class="text-muted">Kembali: {{ $buku->pivot->tanggal_kembali }}</small>
-                                    <br>
-                                    <small class="text-danger">Denda: Rp{{ number_format($buku->pivot->denda, 0, ',', '.') }}</small>
-                                  </li>
-                                                                    @empty
-                                      <li><em>Belum ada</em></li>
-                                  @endforelse
-                              </ul>
-                          </div>
-                      </td>
+<!-- Buku Dipinjam -->
+<td>
+    <ul class="mb-0">
+        @forelse($peminjaman->bukus->whereNull('pivot.tanggal_kembali') as $buku)
+            <li>{{ $buku->kode_buku }} - {{ $buku->NamaBuku }}</li>
+        @empty
+            <li><em>Tidak ada</em></li>
+        @endforelse
+    </ul>
+</td>
+
+<!-- Buku Dikembalikan -->
+<td>
+    <ul class="mb-0">
+        @forelse($peminjaman->bukus->whereNotNull('pivot.tanggal_kembali') as $buku)
+            <li>
+                {{ $buku->kode_buku }} - {{ $buku->NamaBuku }}<br>
+                <small class="text-muted">Kembali: {{ $buku->pivot->tanggal_kembali }}</small><br>
+                <small class="text-danger">Denda: Rp{{ number_format($buku->pivot->denda, 0, ',', '.') }}</small>
+            </li>
+        @empty
+            <li><em>Belum ada</em></li>
+        @endforelse
+    </ul>
+</td>
+
                       
                         <td>
                           @php
@@ -150,26 +151,13 @@
                                             </div>
                                             @endif
                                         @endforeach
+                                            {{-- Input Tanggal Kembali --}}
+                                            <div class="mb-3 tanggal-kembali-wrapper" style="display: none;">
+                                            <label for="tanggal_kembali_{{ $peminjaman->id }}" class="form-label">Tanggal Kembali</label>
+                                            <input type="date" name="tanggal_kembali" id="tanggal_kembali_{{ $peminjaman->id }}" class="form-control">
+                                            </div>
 
-                                        {{-- Input Tanggal Kembali --}}
-                                        <div class="mb-3">
-                                          <label for="tanggal_kembali_{{ $peminjaman->id }}" class="form-label">Tanggal Kembali</label>
-                                          <input type="date" name="tanggal_kembali" id="tanggal_kembali_{{ $peminjaman->id }}" class="form-control" required>
-                                      </div>
                                         </div>
-
-                                        
-                                          {{-- <div class="modal-body">
-
-                          
-                                              @foreach ($peminjaman->bukus as $buku)
-                                                  <input type="hidden" name="buku_ids[]" value="{{ $buku->id }}">
-                                                  <div class="mb-3">
-                                                      <label class="form-label">{{ $buku->judul }} - Denda (Rp)</label>
-                                                      <input type="number" name="denda[]" id="denda_{{ $peminjaman->id }}_{{ $buku->id }}" class="form-control" value="0" readonly>
-                                                  </div>
-                                              @endforeach
-                                          </div> --}}
                                           <div class="modal-footer">
                                               <button type="submit" class="btn btn-primary">Simpan</button>
                                           </div>
@@ -190,7 +178,26 @@
         </table>  
     </div>
 </div>
+<!-- jQuery & DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
+function hitungHariKerja(startDate, endDate) {
+    let count = 0;
+    const current = new Date(startDate);
+
+    while (current <= endDate) {
+        const day = current.getDay();
+        // 0 = Minggu, 6 = Sabtu, kita skip
+        if (day !== 0 && day !== 6) {
+            count++;
+        }
+        current.setDate(current.getDate() + 1);
+    }
+
+    return count;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const modals = document.querySelectorAll('[id^="modalPengembalian-"]');
 
@@ -213,6 +220,25 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
+                // Fungsi untuk cek apakah ada checkbox yang dicentang
+        function updateTanggalKembaliVisibility(modal) {
+            const checkboxes = modal.querySelectorAll('.buku-checkbox');
+            const tanggalWrapper = modal.querySelector('.tanggal-kembali-wrapper');
+
+            const isChecked = Array.from(checkboxes).some(cb => cb.checked);
+            tanggalWrapper.style.display = isChecked ? 'block' : 'none';
+        }
+
+        // Pasang event listener untuk setiap checkbox
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                updateTanggalKembaliVisibility(modal);
+            });
+        });
+
+        // Inisialisasi awal saat modal dibuka (kalau user reload modal dengan pilihan sebelumnya)
+        updateTanggalKembaliVisibility(modal);
+
         // Hitung denda saat tanggal kembali diubah
         tanggalInput.addEventListener('change', function () {
             const tanggalKembali = new Date(this.value);
@@ -222,8 +248,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const jatuhTempoStr = checkbox.dataset.jatuhTempo;
                 const jatuhTempo = new Date(jatuhTempoStr);
-                const selisihHari = Math.floor((tanggalKembali - jatuhTempo) / (1000 * 60 * 60 * 24));
-                const denda = selisihHari > 0 ? selisihHari * 1000 : 0;
+
+                // Kalau tanggal kembali kurang dari atau sama dengan jatuh tempo, denda = 0
+                if (tanggalKembali <= jatuhTempo) {
+                    denda = 0;
+                } else {
+                    // Hitung hari kerja keterlambatan, mulai dari hari setelah jatuh tempo sampai tanggal kembali
+                    // Misal jatuh tempo 10 Mei, tanggal kembali 13 Mei, hitung dari 11 Mei sampai 13 Mei
+                    const startDate = new Date(jatuhTempo);
+                    startDate.setDate(startDate.getDate() + 1);
+
+                    const hariKerjaTerlambat = hitungHariKerja(startDate, tanggalKembali);
+                    var denda = hariKerjaTerlambat * 1000;
+                }
 
                 const bukuId = checkbox.dataset.bukuId;
                 const inputDenda = modal.querySelector(`#denda_${modal.id.split('-')[1]}_${bukuId}`);
@@ -234,5 +271,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+//DATA TABLE
+$(document).ready(function() {
+    $('.datatable').DataTable({
+        searching: false
+    });
+});
+
 </script>
 @endsection

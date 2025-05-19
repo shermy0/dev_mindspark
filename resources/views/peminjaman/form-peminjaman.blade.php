@@ -72,7 +72,12 @@
             </div>
         </div>
 
+         {{-- <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Simpan Buku</button>
+                    </div> --}}
         <div class="text-center">
+                                    <a href="{{ route('kelola-peminjaman') }}" class="btn btn-secondary me-2">Batal</a>
+
             <button class="btn btn-warning" type="submit">Selesai</button>
         </div>
     </form>
@@ -125,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
             bukuItem.id = `buku-${buku.id}`;
 
             bukuItem.innerHTML = `
-                <span class="me-2">📚 ${buku.nama}</span>
+                <strong class="me-2">📚 ${buku.nama}</strong>
                 <input type="hidden" name="buku_id[]" value="${buku.id}">
                 <button type="button" class="btn btn-danger btn-sm btnHapusBuku">Hapus</button>
             `;
@@ -235,10 +240,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     tanggalPinjamInput.value = formatDate(today);
 
-    // Misal default jatuh tempo 7 hari setelah pinjam
-    const jatuhTempo = new Date(today);
-    jatuhTempo.setDate(jatuhTempo.getDate() + 3);
-    tanggalJatuhTempoInput.value = formatDate(jatuhTempo);
+function tambahHariKerja(tanggalMulai, jumlahHariKerja) {
+    let hasil = new Date(tanggalMulai);
+    let hariKerjaDitambahkan = 0;
+
+    while (hariKerjaDitambahkan < jumlahHariKerja) {
+        hasil.setDate(hasil.getDate() + 1);
+        const hari = hasil.getDay(); // 0 = Minggu, 6 = Sabtu
+        if (hari !== 0 && hari !== 6) {
+            hariKerjaDitambahkan++;
+        }
+    }
+
+    return hasil;
+}
+
+const jatuhTempo = tambahHariKerja(today, 3); // 3 hari kerja dari hari ini
+tanggalJatuhTempoInput.value = formatDate(jatuhTempo);
+
 });
 
 </script>

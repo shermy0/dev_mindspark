@@ -28,7 +28,7 @@ public function simpanPeminjaman(Request $request)
     // Attach buku to the peminjaman (assuming many-to-many relationship)
     $peminjaman->bukus()->sync($request->buku_id);
 
-
+    
     return redirect()->route('kelola-pengembalian')->with('success', 'Peminjaman berhasil!');
 }
 

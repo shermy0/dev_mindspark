@@ -1,6 +1,10 @@
 @extends('master')
 @section('konten')
 <link rel="stylesheet" href="{{ asset('css/manage.css') }}">
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 <div class="container-fluid">
     <div class="row">
         <!-- Main content -->
@@ -11,7 +15,8 @@
                     <a href="{{ route('books.create') }}" class="btn btn-primary float-end">Tambah Buku Baru</a>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <!-- Tambahkan class 'datatable' -->
+                    <table class="table datatable">
                         <thead>
                             <tr>
                                 <th>Judul</th>
@@ -28,7 +33,6 @@
                                 <td>{{ $book->penerbit }}</td>
                                 <td>
                                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                                    <!-- Tombol Delete yang membuka modal -->
                                     <button class="btn btn-sm btn-danger" onclick="confirmDelete({{ $book->id }})">Hapus</button>
                                 </td>
                             </tr>
@@ -64,11 +68,19 @@
     </div>
 </div>
 
-<!-- JavaScript -->
+<!-- jQuery & DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<!-- Inisialisasi DataTables -->
 <script>
+    $(document).ready(function() {
+        $('.datatable').DataTable();
+    });
+
     function confirmDelete(bookId) {
         let form = document.getElementById('deleteForm');
-        form.action = "{{ route('manage-buku.destroy', '') }}/" + bookId; 
+        form.action = "{{ route('manage-buku.destroy', '') }}/" + bookId;
         let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         deleteModal.show();
     }

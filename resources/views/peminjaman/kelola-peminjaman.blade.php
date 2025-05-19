@@ -1,22 +1,14 @@
 @extends('master')
 @section('konten')
 <link rel="stylesheet" href="{{ asset('assets/css/peminjaman.css')}}">
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
 <div class="container">
     <h1 class="judul-peminjaman mb-4">Kelola Peminjaman</h1>
 
-    <!-- Search Form -->
-    <form action="{{ route('kelola-peminjaman') }}" method="GET" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Cari NIS atau Nama..." value="{{ request('search') }}">
-            <button class="btn btn-primary" type="submit">
-                <i class="bi bi-search"></i> Cari
-            </button>
-        </div>
-    </form>
-
     <div class="table-responsive">
-        <table class="table table-bordered align-middle text-center">
+        <table class="table table-bordered align-middle text-center datatable">
             <thead class="table-header">
                 <tr>
                     <th>Foto</th>
@@ -51,4 +43,14 @@
         </table>
     </div>
 </div>
+<!-- jQuery & DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+
+        $(document).ready(function() {
+        $('.datatable').DataTable();
+    });
+</script>
+
 @endsection
