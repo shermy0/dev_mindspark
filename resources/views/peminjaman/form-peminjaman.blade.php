@@ -99,6 +99,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.forEach(buku => {
                     const col = document.createElement('div');
                     col.classList.add('col');
+                    const ketersediaan = buku.ketersediaan;
+                    const badgeClass = ketersediaan === 'Tersedia' ? 'success' : 'danger';
+
+
 
                     col.innerHTML = `
                         <div class="card h-100">
@@ -106,7 +110,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="card-body">
                                 <h5 class="card-title">${buku.NamaBuku}</h5>
                                 <p class="card-text"><small>${buku.penulis}</small></p>
-                                    <button type="button" class="btn btn-success btn-sm btnPilihBuku" data-id="${buku.id}" data-nama="${buku.NamaBuku}">Pilih</button>
+                                <p class="card-text"><span class="badge bg-${badgeClass}">${ketersediaan}</span></p>
+                                    <button type="button" class="btn btn-primary btn-sm btnPilihBuku" data-id="${buku.id}" data-nama="${buku.NamaBuku}">Pilih</button>
                             </div>
                         </div>
                     `;
@@ -148,35 +153,44 @@ document.addEventListener('DOMContentLoaded', function () {
             const id = e.target.dataset.id;
             const nama = e.target.dataset.nama;
 
-            // Cek apakah buku sudah dipilih sebelumnya
-            if (document.getElementById(`buku-${id}`)) {
-                alert('Buku ini sudah dipilih!');
-                return;
-            }
+ // Ambil elemen parent (card) untuk akses badge ketersediaan
+        const card = e.target.closest('.card');
+        const statusText = card.querySelector('.badge').textContent.trim();
 
-            // Container untuk satu buku
-            const bukuItem = document.createElement('div');
-            bukuItem.classList.add('d-flex', 'align-items-center', 'mb-2');
-            bukuItem.id = `buku-${id}`;
-
-            bukuItem.innerHTML = `
-                <span class="me-2">📚 ${nama}</span>
-                <input type="hidden" name="buku_id[]" value="${id}">
-                <button type="button" class="btn btn-danger btn-sm btnHapusBuku">Hapus</button>
-            `;
-
-            bukuDipilihContainer.appendChild(bukuItem);
-
-            // Save the selected book to localStorage
-            const selectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
-            selectedBooks.push({ id, nama });
-            localStorage.setItem('selectedBooks', JSON.stringify(selectedBooks));
-
-            // Tutup modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalBuku'));
-            modal.hide();
+        if (statusText === 'Tidak Tersedia') {
+            alert('Buku ini tidak tersedia');
+            return; // stop proses
         }
-    });
+
+        // Cek apakah buku sudah dipilih sebelumnya
+        if (document.getElementById(`buku-${id}`)) {
+            alert('Buku ini sudah dipilih!');
+            return;
+        }
+
+        // Container untuk satu buku
+        const bukuItem = document.createElement('div');
+        bukuItem.classList.add('d-flex', 'align-items-center', 'mb-2');
+        bukuItem.id = `buku-${id}`;
+
+        bukuItem.innerHTML = `
+            <span class="me-2">📚 ${nama}</span>
+            <input type="hidden" name="buku_id[]" value="${id}">
+            <button type="button" class="btn btn-danger btn-sm btnHapusBuku">Hapus</button>
+        `;
+
+        bukuDipilihContainer.appendChild(bukuItem);
+
+        // Save the selected book to localStorage
+        const selectedBooks = JSON.parse(localStorage.getItem('selectedBooks')) || [];
+        selectedBooks.push({ id, nama });
+        localStorage.setItem('selectedBooks', JSON.stringify(selectedBooks));
+
+        // Tutup modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalBuku'));
+        modal.hide();
+    }
+});
 
     // Handle removing selected book
     document.addEventListener('click', function (e) {

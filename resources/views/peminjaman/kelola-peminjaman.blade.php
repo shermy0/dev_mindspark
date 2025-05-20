@@ -8,7 +8,7 @@
     <h1 class="judul-peminjaman mb-4">Kelola Peminjaman</h1>
 
     <div class="table-responsive">
-        <table class="table table-bordered align-middle text-center datatable">
+        <table class="table table-bordered table-striped align-middle datatable">
             <thead class="table-header">
                 <tr>
                     <th>Foto</th>

@@ -22,7 +22,7 @@
                                 <th>Judul</th>
                                 <th>Penulis</th>
                                 <th>Penerbit</th>
-                                <th>Stok</th>
+                                <th>Stok Awal</th>
                                 <th>Ketersediaan</th>
                                 <th>Aksi</th>
                             </tr>
