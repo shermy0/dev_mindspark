@@ -15,12 +15,6 @@
   <div class="container">
     {{-- FILTER --}}
     <div class="row g-2 mb-4">
-        <div class="col-md-3">
-            <input type="text" id="filterNama" class="form-control" placeholder="Cari Nama Siswa">
-        </div>
-        <div class="col-md-3">
-            <input type="text" id="filterBuku" class="form-control" placeholder="Cari Kode atau Judul Buku">
-        </div>
         <div class="col-md-2">
             <select id="filterStatus" class="form-select">
                 <option value="">Semua Status</option>
@@ -288,22 +282,6 @@ document.addEventListener('DOMContentLoaded', function () {
     $(document).ready(function () {
         const table = $('.datatable').DataTable({
             order: [[0, 'desc']], // Urutkan ID paling baru
-        });
-
-        // Nama siswa
-        $('#filterNama').on('keyup', function () {
-             // Reset filter status dulu supaya filter buku jalan dengan benar
-            $('#filterStatus').val('');  // Reset dropdown status
-            table.column(1).search(this.value).draw();
-        });
-
-        $('#filterBuku').on('keyup', function () {
-            // Reset filter status dulu supaya filter buku jalan dengan benar
-            $('#filterStatus').val('');  // Reset dropdown status
-            table.column(2).search(this.value).draw();
-            table.column(3).search(this.value).draw();
-            // Reset kolom status agar tidak mengganggu
-            table.column(4).search('');
         });
 
 
