@@ -31,6 +31,7 @@
                 <tr>
                     <th>NIS</th>
                     <th>Nama</th>
+                    <th>Waktu Pinjam</th>
                     <th>Buku Dipinjam</th>
                     <th>Buku Dikembalikan</th>
                     <th>Status Keseluruhan</th>
@@ -42,6 +43,22 @@
                     <tr>
                         <td>{{ $peminjaman->user->nis ?? '-' }}</td>
                         <td>{{ $peminjaman->user->nama ?? '-' }}</td>
+                         <td>
+            <small>
+                 @php
+                $jatuhTempo = \Carbon\Carbon::parse($peminjaman->tanggal_jatuh_tempo);
+                $terlambat = now()->gt($jatuhTempo);
+            @endphp
+                <p>
+                    Pinjam: {{ \Carbon\Carbon::parse($peminjaman->tanggal_pinjam)->format('d M Y') }}<br>
+                    Jatuh Tempo: {{ $jatuhTempo->format('d M Y') }}
+                </p>
+                @if ($terlambat)
+                    <span class="badge bg-danger">Terlambat</span>
+                @endif
+
+            </small>
+        </td>
 <!-- Buku Dipinjam -->
 <td>
     <ul class="mb-0">
@@ -52,13 +69,13 @@
             @endphp
             <li>
                 {{ $buku->kode_buku }} - {{ $buku->NamaBuku }}<br>
-                <small class="text-muted">
+                {{-- <small class="text-muted">
                     Pinjam: {{ \Carbon\Carbon::parse($peminjaman->tanggal_pinjam)->format('d M Y') }}<br>
                     Jatuh Tempo: {{ $jatuhTempo->format('d M Y') }}
                 </small><br>
                 @if ($terlambat)
                     <span class="badge bg-danger">Terlambat</span>
-                @endif
+                @endif  --}}
             </li>
         @empty
             <li><em>Tidak ada</em></li>
@@ -279,16 +296,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //FILTER PAKAI SERVER SIDE DATA TABLES
-    $(document).ready(function () {
-        const table = $('.datatable').DataTable({
-            order: [[0, 'desc']], // Urutkan ID paling baru
-        });
+   $(document).ready(function () {
+    const table = $('.datatable').DataTable({
+        order: [[0, 'desc']], // Urutkan berdasarkan NIS paling baru
+    });
 
-
-       $('#filterStatus').on('change', function () {
-        // Reset filter di kolom 2 dan 4 supaya tidak saling tumpang tindih
+    $('#filterStatus').on('change', function () {
+        // Reset filter di kolom 2 (Waktu Pinjam) dan 5 (Status Keseluruhan)
         table.column(2).search('');
-        table.column(4).search('');
+        table.column(5).search('');
 
         const val = $(this).val();
 
@@ -296,14 +312,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Jika pilih "Semua Status", reset semua filter
             table.draw();
         } else if (val === 'terlambat') {
-            // Filter status terlambat di kolom Buku Dipinjam (kolom 2)
+            // Filter status terlambat di kolom Waktu Pinjam (index 2)
             table.column(2).search('Terlambat', true, false).draw();
         } else {
-            // Filter status "dipinjam" atau "dikembalikan" di kolom Status Keseluruhan (kolom 4)
-            table.column(4).search(val, true, false).draw();
+            // Filter status "dipinjam" atau "dikembalikan" di kolom Status Keseluruhan (index 5)
+            table.column(5).search(val, true, false).draw();
         }
     });
-
 });
 
 

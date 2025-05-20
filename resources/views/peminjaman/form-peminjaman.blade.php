@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     col.innerHTML = `
                         <div class="card h-100">
-                            <img src="/storage/covers/${buku.CoverBuku}" class="card-img-top" alt="${buku.NamaBuku}">
+                            <img src="/storage/cover_buku/${buku.CoverBuku}" class="card-img-top" alt="${buku.NamaBuku}">
                             <div class="card-body">
                                 <h5 class="card-title">${buku.NamaBuku}</h5>
                                 <p class="card-text"><small>${buku.penulis}</small></p>
