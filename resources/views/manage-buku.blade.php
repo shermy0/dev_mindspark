@@ -22,6 +22,8 @@
                                 <th>Judul</th>
                                 <th>Penulis</th>
                                 <th>Penerbit</th>
+                                <th>Stok</th>
+                                <th>Ketersediaan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -31,6 +33,17 @@
                                 <td>{{ $book->NamaBuku }}</td>
                                 <td>{{ $book->penulis }}</td>
                                 <td>{{ $book->penerbit }}</td>
+                                <td>{{ $book->stok }}</td>
+                                <td>
+                                    <form action="{{ route('books.updateKetersediaan', $book->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="ketersediaan" onchange="this.form.submit()" class="form-select form-select-sm">
+                                            <option value="Tersedia" {{ $book->ketersediaan == 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
+                                            <option value="Tidak Tersedia" {{ $book->ketersediaan == 'Tidak Tersedia' ? 'selected' : '' }}>Tidak Tersedia</option>
+                                        </select>
+                                    </form>
+                                </td>
                                 <td>
                                     <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-warning">Ubah</a>
                                     <button class="btn btn-sm btn-danger" onclick="confirmDelete({{ $book->id }})">Hapus</button>

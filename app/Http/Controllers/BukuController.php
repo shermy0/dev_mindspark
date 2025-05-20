@@ -31,5 +31,16 @@ class BukuController extends Controller
          
         return view('buku', compact('buku', 'averageRating', 'otherBooks', 'isBorrowed')); 
     }
+
+    //BUAT MANAGE BUKU, EDIT KETERSEDIAAN
+    public function updateKetersediaan(Request $request, $id)
+    {
+        $book = Buku::findOrFail($id);
+        $book->ketersediaan = $request->input('ketersediaan');
+        $book->save();
+
+        return redirect()->back()->with('success', 'Ketersediaan buku diperbarui.');
+    }
+
     
 }

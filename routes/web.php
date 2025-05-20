@@ -89,6 +89,8 @@ Route::prefix('manage-buku')->group(function () {
     Route::post('/store', [ManageController::class, 'store'])->name('manage-buku.store');
     Route::put('/update/{id}', [ManageController::class, 'update'])->name('manage-buku.update');
     Route::delete('/destroy/{id}', [ManageController::class, 'destroyBook'])->name('manage-buku.destroy');
+    Route::patch('/books/{id}/ketersediaan', [BukuController::class, 'updateKetersediaan'])->name('books.updateKetersediaan');
+
 });
 // manage kategori dan kategori buku
 Route::get('/manage-kategori', [KategoriBukuController::class, 'index'])->name('manage-kategori');
