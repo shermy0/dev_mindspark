@@ -123,12 +123,12 @@ h1, h2 {
 
 .tab-btn.active.borrowed {
     background-color: #fff08d;
-    color: black;
+    color: #d6852f;
 }
 
 .tab-btn.active.returned {
     background-color: #94d2ff;
-    color: white;
+    color: #2f99d6;
 }
 
 .tab-content {
