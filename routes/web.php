@@ -120,6 +120,9 @@ Route::post('/borrow/{id}', [PeminjamanController::class, 'borrow'])->name('borr
 Route::get('/loaning-list', [PeminjamanController::class, 'index'])->name('loaning-list');
 Route::put('/loaning-list/{id}', [PeminjamanController::class, 'update'])->name('loaning-list.update');
 Route::delete('/loaning-list/{id}', [PeminjamanController::class, 'destroy'])->name('loaning-list.destroy');
+Route::get('/loaning', [PeminjamanController::class, 'index'])->name('loaning');
+Route::put('/loaning/{id}', [PeminjamanController::class, 'update'])->name('loaning.update');
+Route::delete('/loaning/{id}', [PeminjamanController::class, 'destroy'])->name('loaning.destroy');
 
 // Routes for Ulasan (Reviews)
 Route::middleware(['auth'])->group(function () {
@@ -148,7 +151,5 @@ Route::get('/kelola-pengembalian', [PeminjamanController::class, 'kelolaPengemba
 Route::get('/peminjaman/form-pengembalian/{id}', [PeminjamanController::class, 'formPengembalian'])->name('peminjaman.form-pengembalian');
 
 Route::post('/pengembalian/{peminjaman}', [PengembalianController::class, 'store'])->name('pengembalian.store');
-
-
 
 ?>

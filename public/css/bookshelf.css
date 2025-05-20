@@ -4,7 +4,15 @@ main{
 body {
     background-color: #f8f9fa;
 }
-p{
+body {
+    background-color: #f8f9fa;
+}
+
+main {
+    color: black;
+}
+
+p {
     font-weight: 400;
 }
 
@@ -30,6 +38,11 @@ h1, h2 {
 
 .returned-section {
     background-color: #94d2ff; /* Warna soft blue */
+    background-color: #fff08d;
+}
+
+.returned-section {
+    background-color: #94d2ff;
 }
 
 .card {
@@ -87,4 +100,74 @@ h1, h2 {
 
 .btn-light i {
     font-size: 18px;
+}
+.tab-container {
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tab-btn.active.borrowed {
+    background-color: #fff08d;
+    color: black;
+}
+
+.tab-btn.active.returned {
+    background-color: #94d2ff;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.body-borrowed {
+    background-color: #ffffff;
+}
+
+.body-returned {
+    background-color: #ffffff;
+}
+.popup-denda {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup-content {
+    background-color: #fff08d;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }

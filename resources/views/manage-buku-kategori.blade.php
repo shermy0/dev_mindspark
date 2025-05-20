@@ -14,6 +14,7 @@
 
     <!-- Add a class to the table -->
     <table class="bukuTable table table-striped mt-4">
+    <table class="table table-striped mt-4">
         <thead>
             <tr>
                 <th>ID</th>
@@ -85,5 +86,4 @@
         $('.bukuTable').DataTable();
     });
 </script>
-
 @endsection

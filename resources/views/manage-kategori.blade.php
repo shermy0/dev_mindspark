@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/kategoribuku.css') }}">
 <!-- Add the DataTable CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-
 <div class="container">
     <h2 class="mb-4">Manage Kategori</h2>
 
@@ -23,6 +22,7 @@
 
     <!-- Add a class to your table -->
     <table class="table table-striped mt-4" id="kategoriTable">
+    <table class="table table-striped mt-4">
         <thead>
             <tr>
                 <th>ID</th>
@@ -58,4 +58,5 @@
         $('#kategoriTable').DataTable();
     });
 </script>
+
 @endsection

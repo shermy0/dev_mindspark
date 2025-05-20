@@ -15,7 +15,7 @@
                     <a href="{{ route('books.create') }}" class="btn btn-primary float-end">Tambah Buku Baru</a>
                 </div>
                 <div class="card-body">
-                    <!-- Tambahkan class 'datatable' -->
+                    <!-- Hanya satu table dengan class datatable -->
                     <table class="table datatable">
                         <thead>
                             <tr>
@@ -72,18 +72,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-<!-- Inisialisasi DataTables -->
+<!-- Inisialisasi DataTable -->
 <script>
     $(document).ready(function() {
         $('.datatable').DataTable();
     });
 
-    function confirmDelete(bookId) {
-        let form = document.getElementById('deleteForm');
-        form.action = "{{ route('manage-buku.destroy', '') }}/" + bookId;
-        let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-        deleteModal.show();
+    function confirmDelete(id) {
+        const url = "{{ url('books') }}/" + id;
+        $('#deleteForm').attr('action', url);
+        $('#deleteModal').modal('show');
     }
 </script>
-
 @endsection

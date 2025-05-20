@@ -73,6 +73,4 @@ public function formPengembalian($id)
     $peminjaman = Peminjaman::with('bukus', 'user')->findOrFail($id);
     return view('peminjaman.form-pengembalian', compact('peminjaman'));
 }
-
-
 }

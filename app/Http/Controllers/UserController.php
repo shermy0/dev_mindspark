@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Buku;
 
-
 class UserController extends Controller
 {
     public function dashboard()
@@ -47,7 +46,6 @@ class UserController extends Controller
         return view('peminjaman.form-peminjaman', compact('user'));
     }
 
-    
 
     public function update(Request $request)
     {

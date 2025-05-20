@@ -26,9 +26,9 @@ class Peminjaman extends Model
         ->withPivot('tanggal_kembali', 'denda')
         ->withTimestamps();    }
 
+        
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 }
-

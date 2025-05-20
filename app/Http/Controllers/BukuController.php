@@ -21,10 +21,13 @@ class BukuController extends Controller
          // Ambil buku lain kecuali buku yang sedang ditampilkan
          $otherBooks = Buku::where('id', '!=', $id)->get();
                  // Cek apakah buku sudah dipinjam oleh user (status = borrowed)
-        $isBorrowed = Peminjaman::where('UserID', auth()->user()->id)
-        ->where('BukuID', $buku->id)
-        ->where('StatusPeminjaman', 'borrowed')
-        ->exists();
+        $isBorrowed = Peminjaman::where('user_id', auth()->user()->id)
+            ->where('status_peminjaman', 'dipinjam')
+            ->whereHas('bukus', function ($query) use ($buku) {
+                $query->where('buku_id', $buku->id);
+            })
+            ->exists();
+
          
         return view('buku', compact('buku', 'averageRating', 'otherBooks', 'isBorrowed')); 
     }
