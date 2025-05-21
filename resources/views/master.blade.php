@@ -67,6 +67,9 @@
             <a href="{{ route('manage-user') }}" class="d-block {{ request()->is('manage-user') ? 'active' : '' }}">
                 <i class="bi bi-chat icon-custom"></i> Pengguna
             </a>
+            <a href="{{ route('statistik') }}" class="d-block {{ request()->is('statistik') ? 'active' : '' }}">
+                <i class="bi bi-graph-up icon-custom"></i> Statistik Pengunjung
+            </a>
             @endif
 
         @endif

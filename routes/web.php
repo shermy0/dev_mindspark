@@ -13,6 +13,7 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StatistikController;
 
 
 
@@ -127,4 +128,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ulasan/{ulasan}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
 });
 
+//route statistik
+Route::middleware(['auth'])->group(function () {
+    Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
+});
 ?>
