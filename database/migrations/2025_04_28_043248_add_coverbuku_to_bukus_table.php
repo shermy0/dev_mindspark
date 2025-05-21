@@ -12,15 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bukus', function (Blueprint $table) {
-            $table->string('CoverBuku')->after('id'); 
+            // Cek dulu apakah kolom 'CoverBuku' belum ada supaya gak error
+            if (!Schema::hasColumn('bukus', 'CoverBuku')) {
+                $table->string('CoverBuku')->after('id');
+            }
         });
     }
     
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::table('bukus', function (Blueprint $table) {
-            $table->dropColumn('CoverBuku');
+            // Hapus kolom 'CoverBuku' kalau ada
+            if (Schema::hasColumn('bukus', 'CoverBuku')) {
+                $table->dropColumn('CoverBuku');
+            }
         });
     }
-    
 };

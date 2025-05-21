@@ -13,7 +13,6 @@
     <table class="table table-striped mt-4">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Judul</th>
                 <th>Kategori</th>
                 <th>Aksi</th>
@@ -22,11 +21,10 @@
         <tbody>
             @foreach ($bukus as $buku)
             <tr>
-                <td>{{ $buku->id }}</td>
                 <td>{{ $buku->NamaBuku }}</td>
                 <td>
                     @foreach ($buku->kategoris as $kategori)
-                        <span class="badge bg-primary">{{ $kategori->NamaKategori }}</span>
+                        <span class="badge">{{ $kategori->NamaKategori }}</span>
                     @endforeach
                 </td>
                 <td>
@@ -61,7 +59,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                <button type="submit" class="btn">Simpan Perubahan</button>
                             </form>
                         </div>
                     </div>

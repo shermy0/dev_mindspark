@@ -19,12 +19,8 @@
                 <label for="password" class="form-label">Kata Sandi</label>
                 <input type="password" class="form-control" name="password" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Masuk</button>
+            <button type="submit" class="btn buttonlogin w-100">Masuk</button>
         </form>
-        
-        <div class="text-center mt-3">
-            <small>Belum punya akun? <a href="{{ url('/register') }}">Daftar</a></small>
-        </div>
     </div>
 </div>
 @endsection

@@ -39,7 +39,11 @@
                     @endforeach
                 </div>
                 <p class="publisher mb-2">{{ $buku->deskripsi }}</p><br>
-                <a href="{{ route('buku.baca', $buku->id) }}" class="btn btn-pinjam">Baca</a>
+                <form action="{{ route('buku.baca', $buku->id) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-primary">Baca</button>
+</form>
+
                 <br><br>
                 <h4>Penilaian</h4>
                 <div class="book-rating mb-3">
@@ -75,10 +79,10 @@
                                 <div class="modal-header d-flex justify-content-between">
                                     <ul class="nav nav-tabs" id="reviewTab" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Ulasan</a>
+                                            <a class="nav-link active btn-allreviews" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Ulasan</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="addReview-tab" data-bs-toggle="tab" href="#addReview" role="tab" aria-controls="addReview" aria-selected="false">Beri Ulasan</a>
+                                            <a class="nav-link btn-allreviews" id="addReview-tab" data-bs-toggle="tab" href="#addReview" role="tab" aria-controls="addReview" aria-selected="false">Beri Ulasan</a>
                                         </li>
                                     </ul>
 
@@ -143,7 +147,7 @@
                                                     <textarea class="form-control" name="ulasan" rows="3" required></textarea>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary">Kirim Penilaian</button>
+                                                    <button type="submit" class="btn btn-allreviews">Kirim Penilaian</button>
                                                 </div>
                                             </form>
                                         </div>

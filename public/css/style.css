@@ -316,3 +316,14 @@ p {
     color: #555;
     line-height: 1.6;
 } 
+
+.buttonmasuk {
+    background-color: #8de3ff;
+    color: white;
+}
+
+.buttonmasuk:hover {
+    background-color: #fff08d;
+    color: white;
+}
+

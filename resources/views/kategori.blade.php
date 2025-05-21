@@ -2,7 +2,7 @@
 @section('konten')
 <head>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>MindSpark</title>
+    <title>LibLeven</title>
 </head>
 
 <body>

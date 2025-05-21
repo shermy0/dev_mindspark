@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('BukuID', $bukuId)->exists();
     }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
 }

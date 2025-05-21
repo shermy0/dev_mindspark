@@ -20,8 +20,9 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="nis">NIS</label>
+                    <label for="nis">NIS/NIP</label>
                     <input type="text" id="nis" name="nis" value="{{ Auth::user()->nis }}" disabled>
+                    <i class="bi bi-person-badge"></i>
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama</label>

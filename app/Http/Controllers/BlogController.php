@@ -10,21 +10,21 @@ use App\Models\User;
 
 class BlogController extends Controller
 {
-    // Method welcome dengan data statistik untuk halaman welcome
     public function welcome()
     {
         $bookCount = Buku::count();
         $categoriesCount = Kategori::count();
         $reviewCount = Ulasan::count();
         $userCount = User::count();
-
-        return view('welcome', compact('bookCount', 'categoriesCount', 'reviewCount', 'userCount'));
+    
+        // Ambil hanya top 3 buku berdasarkan jumlah views terbanyak
+        $bukus = Buku::withCount('views')
+            ->orderBy('views_count', 'desc')
+            ->take(3)
+            ->get();
+    
+        return view('welcome', compact('bookCount', 'categoriesCount', 'reviewCount', 'userCount', 'bukus'));
     }
-
-    // Method welcome tanpa data (bisa kamu hapus kalau sudah ada yang di atas)
-    // public function welcome(){
-    //     return view('welcome');
-    // }
 
     public function about()
     {

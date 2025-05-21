@@ -24,7 +24,7 @@
         <form action="{{ url('/register') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="nis" class="form-label">NIS</label>
+                <label for="nis" class="form-label">NIS/NIP</label>
                 <input type="text" class="form-control" name="nis" required>
             </div>
             <div class="mb-3">
@@ -49,10 +49,6 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Daftar</button>
         </form>
-
-        <div class="text-center mt-3">
-            <small>Sudah punya akun? <a href="{{ url('/login') }}">Masuk</a></small>
-        </div>
     </div>
 </div>
 @endsection

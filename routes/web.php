@@ -14,6 +14,8 @@ use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,15 +55,12 @@ Route::get('/chatcs', [BlogController::class, 'chatcs'])->name('chatcs');
 
 //ngatur login register logout
 Route::get('/', [BlogController::class, 'index'])->name('welcome');
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//register dari petugas
+Route::post('/register', [UserController::class, 'store'])->name('register');
 
 // Route Kategori dan Buku
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
@@ -89,23 +88,24 @@ Route::prefix('manage-buku')->group(function () {
     Route::put('/update/{id}', [ManageController::class, 'update'])->name('manage-buku.update');
     Route::delete('/destroy/{id}', [ManageController::class, 'destroyBook'])->name('manage-buku.destroy');
 });
+
 // manage kategori dan kategori buku
 Route::get('/manage-kategori', [KategoriBukuController::class, 'index'])->name('manage-kategori');
 Route::post('/manage-kategori/store', [KategoriBukuController::class, 'store'])->name('kategori.store');
 Route::delete('/manage-kategori/{id}', [KategoriBukuController::class, 'destroy'])->name('kategori.destroy');
-
 Route::get('/manage-buku-kategori', [KategoriBukuController::class, 'manageBukuKategori'])->name('manage-buku-kategori');
 Route::post('/manage-buku-kategori/store', [KategoriBukuController::class, 'storeBukuKategori'])->name('buku-kategori.store');
 Route::delete('/manage-buku-kategori/{id}', [KategoriBukuController::class, 'destroyBukuKategori'])->name('buku-kategori.destroy');
 Route::put('/manage-buku-kategori/{id}', [KategoriBukuController::class, 'update'])->name('buku-kategori.update');
 
-
+//manage laporan
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
+Route::post('/laporan/store', [LaporanController::class, 'store'])->name('laporan.store');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard'); // <--- Tambahkan ini
-
-//favorit
 
 // Route untuk menambah atau menghapus buku dari favorit
 Route::post('/favorite/{action}/{bukuId}', [FavoriteController::class, 'toggleFavorite'])->name('favorites.toggle');
@@ -127,4 +127,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ulasan/{ulasan}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
 });
 
+//views 
+Route::post('/buku/baca/{id}', [ViewController::class, 'store'])->name('buku.baca')->middleware('auth');
 ?>

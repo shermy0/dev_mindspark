@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>MindSpark</title>
+  <title>LibLeven</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -35,7 +35,7 @@
 
       <a href="{{ route('welcome') }}" class="logo d-flex align-items-center me-auto me-xl-0">
         <img src="{{ asset('assets/img/logo2.png') }}" alt="">
-        <h1 class="sitename">MindSpark</h1>
+        <h1 class="sitename">LibLeven</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -48,12 +48,8 @@
       </nav>
 
       <div>
-        <a class="btn-getstarted-outline-primary " href="{{ route('login') }}">Masuk</a>
-        <a class="btn-getstarted" href="{{ route('register') }}">Daftar</a>
+        <a class="btn-getstarted " href="{{ route('login') }}">Masuk</a>
       </div>
-
-
-
     </div>
   </header>
 
@@ -66,7 +62,7 @@
 
 <!-- Vendor JS Files -->
 <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+<!-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> -->
 <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
 <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>

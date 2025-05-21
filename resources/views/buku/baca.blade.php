@@ -1,6 +1,8 @@
 @extends('master')
 
 @section('konten')
+<link rel="stylesheet" href="{{ asset('css/baca.css') }}">
+
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -9,11 +11,11 @@
             <div class="position-relative mb-4">
 
                 {{-- Tombol Kembali --}}
-                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary shadow-sm position-absolute start-0 top-50 translate-middle-y">
+                <a href="{{ url()->previous() }}" class="btn buttonarrow">
                     ←
                 </a>
 
-                {{-- Judul Buku (tetap di tengah) --}}
+                {{-- Judul Buku --}}
                 <h2 class="text-dark text-center m-0">
                     {{ $buku->NamaBuku }}
                 </h2>
@@ -22,33 +24,39 @@
                 <div class="position-absolute end-0 top-50 translate-middle-y" style="min-width: 160px;">
                     <select id="pilihBab" class="form-select">
                         @foreach($babList as $index => $bab)
-                            <option value="bab-{{ $index }}">Bab {{ $index + 1 }}</option>
+                            <option value="{{ $index }}">Bab {{ $index + 1 }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-            {{-- Konten Bab --}}
-            @foreach($babList as $index => $bab)
-                <div id="bab-{{ $index }}" class="card shadow-sm rounded-4 bab-content" style="{{ $index != 0 ? 'display:none;' : '' }}">
-                    <div class="card-body p-4">
-                        <p class="text-dark text-justify" style="line-height: 1.8; font-size: 1.1rem;">
-                            {!! nl2br(e(trim($bab))) !!}
-                        </p>
-                    </div>
+            {{-- Carousel Konten Bab --}}
+            <div id="carouselBab" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                    @foreach($babList as $index => $bab)
+                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                            <div class="card shadow-sm rounded-4">
+                                <div class="card-body p-4">
+                                    <p class="text-dark text-justify" style="line-height: 1.8; font-size: 1.1rem;">
+                                        {!! nl2br(e(trim($bab))) !!}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
-
+            </div>
         </div>
     </div>
 </div>
 
-{{-- Script untuk pilih bab --}}
+{{-- Script dropdown ke slide --}}
 <script>
     document.getElementById('pilihBab').addEventListener('change', function () {
-        let selected = this.value;
-        document.querySelectorAll('.bab-content').forEach(el => el.style.display = 'none');
-        document.getElementById(selected).style.display = 'block';
+        let selectedIndex = parseInt(this.value);
+        let carousel = bootstrap.Carousel.getInstance(document.getElementById('carouselBab')) 
+                        || new bootstrap.Carousel(document.getElementById('carouselBab'));
+        carousel.to(selectedIndex);
     });
 </script>
 @endsection

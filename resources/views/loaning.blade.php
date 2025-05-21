@@ -16,7 +16,6 @@
         <table class="table table-white table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nama</th>
                     <th>Judul</th>
                     <th>Tanggal Peminjaman</th>
@@ -28,7 +27,6 @@
             <tbody>
                 @foreach($peminjaman as $item)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->user->nama }}</td>
                         <td>{{ $item->buku->NamaBuku }}</td>
                         <td>{{ $item->TanggalPeminjaman }}</td>

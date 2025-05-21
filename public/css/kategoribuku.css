@@ -44,3 +44,14 @@ td {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+
+.custom-btn {
+    background-color: #8de3ff;
+    color: black;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #ffc107;
+    color: black;
+}

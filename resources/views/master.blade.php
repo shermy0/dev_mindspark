@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindSpark</title>
+    <title>LibLeven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
     <div class="sidebar">
         <div class="text-center">
-            <img src="" alt="">MindSpark
+            <img src="" alt="">LibLeven
         </div>
         <div class="text-center">
             @if(Auth::check())
@@ -73,6 +73,9 @@
             </a>
             @endif
 
+            <a href="{{ route('laporan.index') }}" class="d-block {{ request()->is('laporan') ? 'active' : '' }}">
+            <i class="bi bi-file-earmark-text"></i> Laporan
+        </a>
         @endif
 
         <div class="logout-section">
