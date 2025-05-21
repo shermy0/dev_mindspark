@@ -2,11 +2,8 @@
 
 @section('konten')
 <link rel="stylesheet" href="{{ asset('css/kategoribuku.css') }}">
-<<<<<<< HEAD
 <!-- Add the DataTable CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-=======
->>>>>>> preview
 
 <div class="container">
     <h2 class="mb-4">Kelola Kategori Buku</h2>
@@ -15,18 +12,12 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-<<<<<<< HEAD
     <!-- Add a class to the table -->
     <table class="bukuTable table table-striped mt-4">
     <table class="table table-striped mt-4">
         <thead>
             <tr>
                 <th>ID</th>
-=======
-    <table class="table table-striped mt-4">
-        <thead>
-            <tr>
->>>>>>> preview
                 <th>Judul</th>
                 <th>Kategori</th>
                 <th>Aksi</th>
@@ -35,18 +26,17 @@
         <tbody>
             @foreach ($bukus as $buku)
             <tr>
-<<<<<<< HEAD
+{{-- <<<<<<< HEAD
                 <td>{{ $buku->id }}</td>
                 <td>{{ $buku->NamaBuku }}</td>
                 <td>
                     @foreach ($buku->kategoris as $kategori)
                         <span class="badge bg-primary">{{ $kategori->NamaKategori }}</span>
-=======
+======= --}}
                 <td>{{ $buku->NamaBuku }}</td>
                 <td>
                     @foreach ($buku->kategoris as $kategori)
                         <span class="badge">{{ $kategori->NamaKategori }}</span>
->>>>>>> preview
                     @endforeach
                 </td>
                 <td>
@@ -80,12 +70,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-<<<<<<< HEAD
-                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-=======
                                 <button type="submit" class="btn">Simpan Perubahan</button>
->>>>>>> preview
                             </form>
                         </div>
                     </div>
@@ -95,7 +80,6 @@
         </tbody>
     </table>
 </div>
-<<<<<<< HEAD
 
 <!-- Add jQuery and DataTable JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -107,6 +91,5 @@
         $('.bukuTable').DataTable();
     });
 </script>
-=======
->>>>>>> preview
+
 @endsection
