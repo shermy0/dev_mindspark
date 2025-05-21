@@ -9,7 +9,9 @@ use App\Models\User;
 use App\Models\Buku;
 
 class UserController extends Controller
+
 {
+    // Menampilkan dashboard berdasarkan role
     public function dashboard()
     {
         $role = Auth::user()->role;
@@ -47,6 +49,7 @@ class UserController extends Controller
     }
 
 
+    // Menyimpan profil yang diperbarui oleh user
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -98,4 +101,26 @@ class UserController extends Controller
     return response()->json($bukus);
 }
 
+    // Menyimpan pengguna baru dari form modal (dari halaman kelola pengguna)
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nis' => 'required',
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'alamat' => 'required|string|max:255',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        User::create([
+            'nis' => $request->nis,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'password' => bcrypt($request->password),
+            'role' => 'user', // default role user biasa
+        ]);
+
+        return redirect()->back()->with('success', 'Pengguna berhasil ditambahkan!');
+    }
 }

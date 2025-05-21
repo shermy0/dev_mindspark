@@ -6,7 +6,6 @@ use App\Models\Peminjaman;
 
 class BookshelfController extends Controller
 {
-
 public function index()
 {
     $userId = auth()->user()->id;
@@ -23,4 +22,6 @@ public function index()
 
     return view('bookshelf', compact('borrowedBooks', 'returnedBooks'));
 }
+
+
 }

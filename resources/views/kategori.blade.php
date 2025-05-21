@@ -2,7 +2,7 @@
 @section('konten')
 <head>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>MindSpark</title>
+    <title>LibLeven</title>
 </head>
 
 <body>
@@ -16,8 +16,8 @@
                             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                         @endforeach
                         <div class="search-wrapper d-flex">
-                            <input type="text" name="search" class="form-control me-2" placeholder="Buku apa yang anda cari...." value="{{ request('search') }}">
-                            <button type="submit" class="btn btn-primary">
+                        <input type="text" name="search" class="form-control me-2" placeholder="Buku apa yang anda cari...." value="{{ request('search') }}">
+                            <button type="submit" class="btn" style="background-color: #8de3ff; border-color: #8de3ff; color: black;">
                                 Cari
                             </button>
                         </div>
@@ -51,9 +51,7 @@
                 <div class="book-card h-100">
                     <a href="{{ route('buku.show', $buku->id) }}" class="text-decoration-none">
                         @if($buku->CoverBuku)
-                            <img src="{{ asset('storage/cover_buku/' . $buku->CoverBuku) }}" 
-                                 alt="{{ $buku->NamaBuku }}" 
-                                 class="book-cover">
+                            <img src="{{ asset('storage/cover_buku/' . $buku->CoverBuku) }}" alt="{{ $buku->NamaBuku }}" class="img-fluid">
                         @else
                             <div class="no-image">Gambar tidak tersedia</div>
                         @endif

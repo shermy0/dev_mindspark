@@ -40,8 +40,6 @@ class Buku extends Model
     {
         return $this->ulasans()->count();
     }
-
-    
     //relasi ke model favorit
     public function favorites()
     {
@@ -60,5 +58,7 @@ class Buku extends Model
     {
         return $this->hasMany(View::class, 'buku_id');
     }
+
+    
 
 }

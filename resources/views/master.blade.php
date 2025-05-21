@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindSpark</title>
+
+    <title>LibLeven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,10 +14,19 @@
 <body>
     <div class="sidebar">
         <div class="text-center">
-            <img src="" alt="">MindSpark
+            {{-- <img src="" alt="">MindSpark
         </div>
         <div class="text-center">
-            <img src="{{ Auth::user()->foto_url }}" alt="User Avatar" class="user-avatar img-fluid rounded-circle">
+            <img src="{{ Auth::user()->foto_url }}" alt="User Avatar" class="user-avatar img-fluid rounded-circle"> --}}
+
+            <img src="" alt="">LibLeven
+        </div>
+        <div class="text-center">
+            @if(Auth::check())
+                <img src="{{ Auth::user()->foto_url }}" alt="User Avatar" class="user-avatar img-fluid rounded-circle">
+            @else
+                <img src="{{ asset('assets/img/default-avatar.png') }}" alt="Default Avatar" class="user-avatar img-fluid rounded-circle">
+            @endif
         </div>
         <div class="text-center">
             <strong>{{ Auth::user()->nama }}</strong>
@@ -55,6 +65,7 @@
         </a>
         <a href="{{ route('kelola-peminjaman') }}" class="d-block {{ request()->is('kelola-peminjaman') || request()->is('form-peminjaman/*') ? 'active' : '' }}">
             <i class="bi bi-view-list icon-custom"></i> Pinjam Buku
+
         </a>
         <a href="{{ route('manage-buku') }}" class="d-block {{ request()->is('manage-buku') ? 'active' : '' }}">
             <i class="bi bi-book icon-custom"></i> Buku
@@ -76,8 +87,6 @@
             <i class="bi bi-file-earmark-text"></i> Laporan
         </a>
         @endif
-
-
         <div class="logout-section">
             <a href="#" class="d-block logout-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
                 <i class="bi bi-box-arrow-right icon-custom"></i> Keluar
@@ -104,7 +113,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Keluar</button>
+                        <button type="submit" class="btn btn-danger">Keluar</button>
                     </form>
                 </div>
             </div>

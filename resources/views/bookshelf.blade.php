@@ -48,33 +48,33 @@
 @endphp
 
 <div class="col-md-5 mb-4">
-    <div class="card h-100 {{ $isLate ? 'border border-danger shadow' : '' }}">
-        @if($buku->CoverBuku)
-            <img src="{{ asset('storage/cover_buku/' . $buku->CoverBuku) }}" class="card-img-top" alt="{{ $buku->NamaBuku }}">
-        @else
-            <div class="card-img-top d-flex align-items-center justify-content-center" style="height:250px; background-color: #f0f0f0;">
-                Gambar Tidak Tersedia
-            </div>
-        @endif
-        <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-                <h5 class="card-title">
-                    {{ $buku->NamaBuku }}
-                    @if($isLate)
-                        <span class="badge bg-danger ms-2">Terlambat</span>
-                    @endif
-                </h5>
-                <p class="card-text">{{ $buku->penulis ?? 'Penulis tidak tersedia' }}</p>
-            </div>
-            <div class="info mt-3">
-                <p>Dipinjam Pada: <strong>{{ \Carbon\Carbon::parse($pinjam->tanggal_pinjam)->format('Y-m-d') }}</strong></p>
-                <p>Jatuh Tempo: <strong>{{ \Carbon\Carbon::parse($pinjam->tanggal_jatuh_tempo)->format('Y-m-d') }}</strong></p>
-                @if($isLate)
-                    <p class="text-danger">Terlambat <strong>{{ $hariTerlambat }} hari kerja</strong></p>
-                @endif
-            </div>
-        </div>
-    </div>
+   <a href="{{ route('buku.show', $buku->id) }}" class="text-decoration-none text-dark">
+                        <div class="card h-100 {{ $isLate ? 'border border-danger shadow' : 'shadow-sm' }}">
+                            @if($buku->CoverBuku)
+                                <img src="{{ asset('storage/cover_buku/' . $buku->CoverBuku) }}" class="card-img-top" alt="{{ $buku->NamaBuku }}">
+                            @else
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height:250px; background-color: #f0f0f0;">
+                                    Gambar Tidak Tersedia
+                                </div>
+                            @endif
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    {{ $buku->NamaBuku }}
+                                    @if($isLate)
+                                        <span class="badge bg-danger ms-2">Terlambat</span>
+                                    @endif
+                                </h5>
+                                <p class="card-text">{{ $buku->penulis ?? 'Penulis tidak tersedia' }}</p>
+                                <div class="info mt-auto">
+                                    <p>Dipinjam: <strong>{{ \Carbon\Carbon::parse($pinjam->tanggal_pinjam)->format('Y-m-d') }}</strong></p>
+                                    <p>Jatuh Tempo: <strong>{{ $jatuhTempo->format('Y-m-d') }}</strong></p>
+                                    @if($isLate)
+                                        <p class="text-danger">Terlambat <strong>{{ $hariTerlambat }} hari kerja</strong></p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </a>
 </div>
 
                 @endforeach
@@ -102,26 +102,26 @@
 
     @foreach($pinjam->bukus as $buku)
         <div class="col-md-5 mb-4">
-            <div class="card h-100">
-                @if($buku->CoverBuku)
-                    <img src="{{ asset('storage/cover_buku/' . $buku->CoverBuku) }}" class="card-img-top" alt="{{ $buku->NamaBuku }}">
-                @else
-                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height:250px; background-color: #f0f0f0;">
-                        Gambar Tidak Tersedia
-                    </div>
-                @endif
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div>
-                        <h5 class="card-title">{{ $buku->NamaBuku }}</h5>
-                        <p class="card-text">{{ $buku->penulis ?? 'Penulis tidak tersedia' }}</p>
-                    </div>
-                    <div class="info mt-3">
-                        <p>Dipinjam Pada: <strong>{{ \Carbon\Carbon::parse($pinjam->tanggal_pinjam)->format('Y-m-d') }}</strong></p>
-                        <p>Dikembalikan Pada: <strong>{{ optional($buku->pivot)->tanggal_kembali ?? '-' }}</strong></p>
-                        <p class="text-danger">Denda: <strong>Rp {{ number_format($buku->pivot->denda, 0, ',', '.') }}</strong></p>
-                    </div>
-                </div>
-            </div>
+<a href="{{ route('buku.show', $buku->id) }}" class="text-decoration-none text-dark">
+                        <div class="card h-100 shadow-sm">
+                            @if($buku->CoverBuku)
+                                <img src="{{ asset('storage/cover_buku/' . $buku->CoverBuku) }}" class="card-img-top" alt="{{ $buku->NamaBuku }}">
+                            @else
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height:250px; background-color: #f0f0f0;">
+                                    Gambar Tidak Tersedia
+                                </div>
+                            @endif
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ $buku->NamaBuku }}</h5>
+                                <p class="card-text">{{ $buku->penulis ?? 'Penulis tidak tersedia' }}</p>
+                                <div class="info mt-auto">
+                                    <p>Dipinjam: <strong>{{ \Carbon\Carbon::parse($pinjam->tanggal_pinjam)->format('Y-m-d') }}</strong></p>
+                                    <p>Dikembalikan: <strong>{{ optional($buku->pivot)->tanggal_kembali ?? '-' }}</strong></p>
+                                    <p class="text-danger">Denda: <strong>Rp {{ number_format($buku->pivot->denda, 0, ',', '.') }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
         </div>
     @endforeach
 @empty
@@ -130,14 +130,7 @@
 
         </div>
     </div>
-</div>
-    <div id="popupDenda" class="popup-denda" style="display:none;">
-        <div class="popup-content">
-            <h4><strong>Informasi Denda</strong></h4>
-            <p id="popupText">...</p>
-            <button class="btn mt-3" onclick="closePopup()" style="background-color: #81d4fa; color: black;">Kembali</button>
-        </div>
-    </div>    
+</div>  
 </div>
 
 <script>

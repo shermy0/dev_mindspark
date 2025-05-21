@@ -17,4 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+<<<<<<< HEAD
 /database/*.sqlite
+=======
+>>>>>>> preview

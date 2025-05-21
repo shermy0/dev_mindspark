@@ -16,12 +16,7 @@ use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\LaporanController;
-
-
-
-
-
-
+use App\Http\Controllers\AccountController;
 
 
 /*
@@ -52,6 +47,11 @@ Route::get('/home', [BlogController::class, 'home'])->name('home');
 Route::get('/account', [BlogController::class, 'account'])->name('account');
 Route::put('/account/update', [UserController::class, 'update'])->name('account.update')->middleware('auth');
 
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/account', [AccountController::class, 'index'])->name('account');
+//     Route::put('/account/update', [AccountController::class, 'update'])->name('account.update');
+//     Route::put('/account/update-photo', [AccountController::class, 'updatePhoto'])->name('account.updatePhoto');
+// });
 
 Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf');
 
@@ -63,16 +63,18 @@ Route::get('/', [BlogController::class, 'index'])->name('welcome');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//register dari petugas
+Route::post('/register', [UserController::class, 'store'])->name('register');
 
 // Route Kategori dan Buku
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 Route::get('/buku/{id}', [BukuController::class, 'show'])->name('buku.show');
+Route::get('/buku/baca/{id}', [BukuController::class, 'baca'])->name('buku.baca');
+
 
 // Route Ulasan
 Route::middleware(['auth'])->group(function () {
@@ -95,6 +97,7 @@ Route::prefix('manage-buku')->group(function () {
     Route::patch('/books/{id}/ketersediaan', [BukuController::class, 'updateKetersediaan'])->name('books.updateKetersediaan');
 
 });
+
 // manage kategori dan kategori buku
 Route::get('/manage-kategori', [KategoriBukuController::class, 'index'])->name('manage-kategori');
 Route::post('/manage-kategori/store', [KategoriBukuController::class, 'store'])->name('kategori.store');
@@ -105,7 +108,6 @@ Route::post('/manage-buku-kategori/store', [KategoriBukuController::class, 'stor
 Route::delete('/manage-buku-kategori/{id}', [KategoriBukuController::class, 'destroyBukuKategori'])->name('buku-kategori.destroy');
 Route::put('/manage-buku-kategori/{id}', [KategoriBukuController::class, 'update'])->name('buku-kategori.update');
 
-
 //manage laporan
 Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
@@ -114,12 +116,6 @@ Route::post('/laporan/store', [LaporanController::class, 'store'])->name('lapora
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard'); // <--- Tambahkan ini
-
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('auth')
-    ->name('dashboard'); // <--- Tambahkan ini
-
-//favorit
 
 // Route untuk menambah atau menghapus buku dari favorit
 Route::post('/favorite/{action}/{bukuId}', [FavoriteController::class, 'toggleFavorite'])->name('favorites.toggle');
@@ -133,9 +129,6 @@ Route::post('/borrow/{id}', [PeminjamanController::class, 'borrow'])->name('borr
 Route::get('/loaning-list', [PeminjamanController::class, 'index'])->name('loaning-list');
 Route::put('/loaning-list/{id}', [PeminjamanController::class, 'update'])->name('loaning-list.update');
 Route::delete('/loaning-list/{id}', [PeminjamanController::class, 'destroy'])->name('loaning-list.destroy');
-Route::get('/loaning', [PeminjamanController::class, 'index'])->name('loaning');
-Route::put('/loaning/{id}', [PeminjamanController::class, 'update'])->name('loaning.update');
-Route::delete('/loaning/{id}', [PeminjamanController::class, 'destroy'])->name('loaning.destroy');
 
 // Routes for Ulasan (Reviews)
 Route::middleware(['auth'])->group(function () {
@@ -169,6 +162,4 @@ Route::post('/pengembalian/{peminjaman}', [PengembalianController::class, 'store
 
 //views 
 Route::post('/buku/baca/{id}', [ViewController::class, 'store'])->name('buku.baca')->middleware('auth');
-?>
-
 ?>

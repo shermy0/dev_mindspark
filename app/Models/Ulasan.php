@@ -28,4 +28,5 @@ class Ulasan extends Model
     {
         return $this->belongsTo(Buku::class, 'BukuID', 'id');
     }
+    
 }

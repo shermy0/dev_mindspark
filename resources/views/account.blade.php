@@ -10,7 +10,7 @@
             @method('PUT')
             <div class="avatar-container">
 
-                <img src="{{{ Auth::user()->foto_url }}}" alt="User Avatar" class="avatar" id="preview-avatar">
+                <img src="{{ Auth::user()->foto ? asset('storage/' . Auth::user()->foto) : asset('assets/img/avatar.png') }}" alt="User Avatar" class="avatar" id="preview-avatar">
             </div>
             <div class="avatar-container">
                 <label for="foto" class="edit-photo">
@@ -20,8 +20,11 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="nis">NIS</label>
+
+                    <label for="nis">NIS/NIP</label>
                     <input type="text" id="nis" name="nis" value="{{ Auth::user()->nis }}" disabled>
+                    <i class="bi bi-person-badge"></i>
+
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama</label>

@@ -41,7 +41,11 @@ body, html {
 .card i {
     font-size: 40px;
     margin-bottom: 10px;
+<<<<<<< HEAD
     color: #007bff;
+=======
+    color: #8de3ff;
+>>>>>>> preview
 }
 
 .card h3 {
