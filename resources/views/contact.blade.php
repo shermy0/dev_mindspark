@@ -11,7 +11,6 @@
         </div><!-- End Section Title -->
   
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-  
           <div class="row g-4 g-lg-5">
             <div class="col-lg-5">
               <div class="info-box" data-aos="fade-up" data-aos-delay="200">
@@ -57,7 +56,7 @@
                   </div>
                   <div class="content">
                     <h4>Alamat Email</h4>
-                    <p>mindsparkinfo@gmail.com</p>
+                    <p>LibLeveninfo@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -68,43 +67,39 @@
                 <h3>Hubungi Kami</h3>
                 <p>Silakan isi formulir di bawah ini untuk menghubungi kami. Tim kami akan segera merespons pertanyaan Anda.</p>
   
-                <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-                  <div class="row gy-4">
-  
-                    <div class="col-md-6">
-                      <input type="text" name="name" class="form-control" placeholder="Nama Anda" required="">
-                    </div>
-  
-                    <div class="col-md-6 ">
-                      <input type="email" class="form-control" name="email" placeholder="Email Anda" required="">
-                    </div>
-  
-                    <div class="col-12">
-                      <input type="text" class="form-control" name="subject" placeholder="Subjek" required="">
-                    </div>
-  
-                    <div class="col-12">
-                      <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required=""></textarea>
-                    </div>
-  
-                    <div class="col-12 text-center">
-                      <div class="loading">Memuat</div>
-                      <div class="error-message"></div>
-                      <div class="sent-message">Pesan Anda telah terkirim. Terima kasih!</div>
-  
-                      <button type="submit" class="btn">Kirim Pesan</button>
-                    </div>
-  
+                @if(session('success'))
+                  <div class="alert alert-success">
+                      {{ session('success') }}
                   </div>
+                @endif
+
+                <form action="{{ route('laporan.store') }}" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                @csrf
+    <div class="row gy-4">
+
+        <div class="col-md-6">
+          <input type="text" name="nama" class="form-control" placeholder="Nama Anda" required>
+        </div>
+
+        <div class="col-md-6 ">
+          <input type="email" class="form-control" name="email" placeholder="Email Anda" required>
+        </div>
+
+        <div class="col-12">
+          <input type="text" class="form-control" name="subjek" placeholder="Subjek" required>
+        </div>
+
+        <div class="col-12">
+          <textarea class="form-control" name="pesan" rows="6" placeholder="Pesan" required></textarea>
+        </div>
+
+        <div class="col-12 text-center">
+          <button type="submit" class="btn buttonchat">Kirim Pesan</button>
+        </div>
                 </form>
-  
               </div>
             </div>
-  
           </div>
-  
         </div>
-  
       </section><!-- /Section Kontak -->
-
 @endsection

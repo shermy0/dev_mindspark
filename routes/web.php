@@ -14,6 +14,9 @@ use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ViewController;
+use App\Http\Controllers\LaporanController;
+
 
 
 
@@ -103,6 +106,14 @@ Route::delete('/manage-buku-kategori/{id}', [KategoriBukuController::class, 'des
 Route::put('/manage-buku-kategori/{id}', [KategoriBukuController::class, 'update'])->name('buku-kategori.update');
 
 
+//manage laporan
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
+Route::post('/laporan/store', [LaporanController::class, 'store'])->name('laporan.store');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard'); // <--- Tambahkan ini
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
@@ -133,6 +144,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ulasan/{ulasan}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
 });
 
+
+
 //PEMINJAMAN
 Route::get('/kelola-peminjaman', [UserController::class, 'kelolaPeminjaman'])->name('kelola-peminjaman');
 Route::get('/form-peminjaman/{id}', [UserController::class, 'formPeminjaman'])->name('form-peminjaman');
@@ -153,5 +166,9 @@ Route::get('/kelola-pengembalian', [PeminjamanController::class, 'kelolaPengemba
 Route::get('/peminjaman/form-pengembalian/{id}', [PeminjamanController::class, 'formPengembalian'])->name('peminjaman.form-pengembalian');
 
 Route::post('/pengembalian/{peminjaman}', [PengembalianController::class, 'store'])->name('pengembalian.store');
+
+//views 
+Route::post('/buku/baca/{id}', [ViewController::class, 'store'])->name('buku.baca')->middleware('auth');
+?>
 
 ?>

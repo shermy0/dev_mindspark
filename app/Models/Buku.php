@@ -56,5 +56,9 @@ class Buku extends Model
                     ->withTimestamps();
     }
     
+        public function views()
+    {
+        return $this->hasMany(View::class, 'buku_id');
+    }
 
 }

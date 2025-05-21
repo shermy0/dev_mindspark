@@ -19,10 +19,10 @@
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
-  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+  background: linear-gradient(to left, #bee9f7, #ffffff);
   --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #2d465e; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #0d83fd; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #ffc107; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -30,22 +30,20 @@
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #212529;  /* The default color of the main navmenu links */
-  --nav-hover-color: #0d83fd; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-hover-color: #ffc107; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #0d83fd; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: #ffc107; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 .light-background {
-  --background-color: #f3f9ff;
   --surface-color: #ffffff;
 }
 
 .dark-background {
-  --background-color: #0d83fd;
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --surface-color: #409dfd;
@@ -181,7 +179,7 @@ h6 {
 
 .header .btn-getstarted,
 .header .btn-getstarted:focus {
-  color: var(--contrast-color);
+  color: black;
   background: var(--accent-color);
   font-size: 14px;
   padding: 8px 20px;
@@ -192,8 +190,8 @@ h6 {
 
 .header .btn-getstarted:hover,
 .header .btn-getstarted:focus:hover {
-  color: var(--contrast-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 15%);
+  color: black;
+  background: #8de3ff;
 }
 
 @media (max-width: 1200px) {
@@ -595,12 +593,12 @@ h6 {
 
 .scroll-top i {
   font-size: 24px;
-  color: var(--contrast-color);
+  color: black;
   line-height: 0;
 }
 
 .scroll-top:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background-color: #8de3ff;
   color: var(--contrast-color);
 }
 
@@ -745,7 +743,10 @@ section,
 }
 
 .hero .hero-content h1 .accent-text {
-  color: var(--accent-color);
+  background: linear-gradient(to left, #8de3ff, #a0e0f5,#fde395, #ffc107);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 @media (max-width: 992px) {
@@ -784,9 +785,9 @@ section,
 }
 
 .hero .btn-primary {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  color: var(--contrast-color);
+  background-color: #8de3ff;
+  border-color: #8de3ff;
+  color: black;
   padding: 0.75rem 2.5rem;
   border-radius: 50px;
   font-weight: 500;
@@ -794,8 +795,9 @@ section,
 }
 
 .hero .btn-primary:hover {
-  background-color: color-mix(in srgb, var(--accent-color), black 20%);
-  border-color: color-mix(in srgb, var(--accent-color), black 20%);
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: black;
 }
 
 .hero .btn-link {
@@ -914,7 +916,7 @@ section,
 }
 
 .hero .stat-item:hover .stat-icon {
-  background-color: var(--accent-color);
+  background-color: #8de3ff;
 }
 
 .hero .stat-item:hover .stat-icon i {
@@ -2038,15 +2040,15 @@ section,
 # Contact Section
 --------------------------------------------------------------*/
 .contact .info-box {
-  background-color: var(--accent-color);
-  color: var(--contrast-color);
+  background-color: #8de3ff;
+  color: black;
   padding: 3rem;
   border-radius: 1rem;
   height: 100%;
 }
 
 .contact .info-box h3 {
-  color: var(--contrast-color);
+  color: black;
   font-size: 2rem;
   margin-bottom: 1rem;
 }
@@ -2063,7 +2065,7 @@ section,
 }
 
 .contact .info-box a {
-  color: var(--contrast-color);
+  color: black;
 }
 
 @media (max-width: 992px) {
@@ -2100,11 +2102,11 @@ section,
 }
 
 .contact .info-item:hover .icon-box {
-  background-color: color-mix(in srgb, var(--contrast-color), transparent 70%);
+  background-color: #ffc107;
 }
 
 .contact .info-item .content h4 {
-  color: var(--contrast-color);
+  color: black;
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -2171,7 +2173,7 @@ section,
 
 .contact .contact-form .btn {
   background-color: var(--accent-color);
-  color: var(--contrast-color);
+  color: black;
   padding: 1rem 2rem;
   border-radius: 2rem;
   display: inline-flex;
@@ -2185,7 +2187,8 @@ section,
 }
 
 .contact .contact-form .btn:hover {
-  background-color: color-mix(in srgb, var(--accent-color), var(--contrast-color) 20%);
+  background-color: #8de3ff;
+  color: black;
 }
 
 /*--------------------------------------------------------------
@@ -2322,9 +2325,155 @@ section,
   color: var(--accent-color);
 }
 
+
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+.corner-ribbon {
+  width: 170px;
+  background: #e91e63;
+  position: absolute;
+  top: 15px;
+  right: -45px;
+  text-align: center;
+  line-height: 30px;
+  letter-spacing: 1px;
+  color: black;
+  font-weight: bold;
+  transform: rotate(45deg);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  z-index: 10;
+
+  animation: pop 1s ease-in-out infinite alternate, shake 1s ease-in-out infinite;
+}
+
+.rank-1 { background: #8de3ff; } /* pink */
+.rank-2 { background: #8de3ff; } /* biru */
+.rank-3 { background: #8de3ff; } /* hijau */
+
+@keyframes pop {
+  0% { transform: rotate(45deg) scale(1); }
+  100% { transform: rotate(45deg) scale(1.1); }
+}
+
+@keyframes shake {
+  0% { transform: rotate(45deg) translateX(0); }
+  50% { transform: rotate(45deg) translateX(5px); }
+  100% { transform: rotate(45deg) translateX(0); }
+}
+
+/* Card Styling */
+.card.h-100 {
+  height: 100%;
+  width: 1600px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.card.h-100:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.card img {
+  object-fit: cover;
+  height: 220px;
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.card.h-100:hover img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  flex-grow: 1;
+  padding: 15px 20px;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: #222;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.card-text small.text-muted {
+  color: #888;
+}
+
+.card-footer {
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  font-size: 0.85rem;
+  color: #666;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+  .card img {
+    height: 180px;
+  }
+  .card-body {
+    padding: 12px 15px;
+  }
+}
+
+/* Footer Styling */
+.custom-footer {
+  background-color: #222;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.footer-text {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.footer-link {
+  color: #fff08d;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin: 0 0.75rem;
+  font-size: 1.4rem;
+}
+
+.footer-link:hover {
+  color: #8de3ff;
+}
+
+.footer-social {
+  margin-top: 1rem;
+}
+
+.footer-social .footer-link:last-child {
+  margin-right: 0;
+}
+
+.buttonlogin {
+  background-color: #8de3ff;
+  color: black;
+}
+
+.buttonlogin:hover {
+  background-color: #fff08d;
+  color: black;
 }

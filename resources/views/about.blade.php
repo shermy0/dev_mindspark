@@ -16,14 +16,14 @@
       <div class="col-xl-5" data-aos="fade-up" data-aos-delay="200">
         <span class="about-meta"></span>
         <h2 class="about-title">📔Membawa Pengetahuan Lebih Dekat Kepadamu</h2>
-        <p class="about-description">MindSpark hadir untuk memberikan akses literasi tanpa batas bagi semua orang. Dengan koleksi ribuan buku, jurnal, artikel, dan sumber daya digital lainnya, kami berkomitmen menjadi jembatan pengetahuan bagi para pembaca dari berbagai kalangan.</p>
+        <p class="about-description">LibLeven hadir untuk memberikan akses literasi tanpa batas bagi semua orang. Dengan koleksi ribuan buku, jurnal, artikel, dan sumber daya digital lainnya, kami berkomitmen menjadi jembatan pengetahuan bagi para pembaca dari berbagai kalangan.</p>
 
         <div class="row feature-list-wrapper">
           <div class="col-md-12">
             <ul class="feature-list">
               <li><i class="bi bi-check-circle-fill"></i> Cari buku berdasarkan kategori – Temukan buku favoritmu dengan mudah</li>
               <li><i class="bi bi-check-circle-fill"></i> Lihat informasi detail buku – Ketahui deskripsi dan ketersediaan buku</li>
-              <li><i class="bi bi-check-circle-fill"></i> Pinjam & Kembalikan buku – Kelola peminjaman dengan mudah melalui akunmu</li>
+              <li><i class="bi bi-check-circle-fill"></i> Baca Online – Nikmati Buku Favoritmu di Mana Saja, Kapan Saja</li>
             </ul>
           </div>
         </div>
