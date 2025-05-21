@@ -72,7 +72,11 @@
             </a>
             @endif
 
+            <a href="{{ route('laporan.index') }}" class="d-block {{ request()->is('laporan') ? 'active' : '' }}">
+            <i class="bi bi-file-earmark-text"></i> Laporan
+        </a>
         @endif
+
 
         <div class="logout-section">
             <a href="#" class="d-block logout-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
