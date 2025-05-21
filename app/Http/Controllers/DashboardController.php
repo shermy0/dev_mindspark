@@ -1,5 +1,13 @@
+<?php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
+use App\Models\User;
+use App\Models\Buku;
+use App\Models\Kategori;
+use App\Models\Statistik;
 use App\Models\StatistikPengunjung;
-use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
