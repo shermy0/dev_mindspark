@@ -58,7 +58,7 @@
                         <div class="book-info">
                             <h5 class="book-title">{{ $buku->NamaBuku }}</h5>
                             <p class="book-author">{{ $buku->penulis }}</p>
-                            <p class="book-category">
+                            <p class="book-category text-dark">
                                 Kategori: 
                                 @foreach($buku->kategoris as $kategori)
                                     <span class="badge bg-primary">{{ $kategori->NamaKategori }}</span>
