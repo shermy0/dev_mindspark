@@ -166,7 +166,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
+  max-height: 60px;
   margin-right: 8px;
 }
 
@@ -394,6 +394,10 @@ h6 {
   .navmenu a:focus i:hover {
     background-color: var(--accent-color);
     color: var(--contrast-color);
+  }
+
+  .navmenu a:active{
+    color: #20a5f8;
   }
 
   .navmenu a:hover,
@@ -2087,7 +2091,7 @@ section,
 .contact .info-item .icon-box {
   width: 3.5rem;
   height: 3.5rem;
-  background-color: color-mix(in srgb, var(--contrast-color), transparent 85%);
+  background-color:#6bc6ff ;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2098,7 +2102,7 @@ section,
 
 .contact .info-item .icon-box i {
   font-size: 1.5rem;
-  color: var(--contrast-color);
+  color: #2072a5;
 }
 
 .contact .info-item:hover .icon-box {
