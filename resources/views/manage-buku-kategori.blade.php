@@ -2,8 +2,10 @@
 
 @section('konten')
 <link rel="stylesheet" href="{{ asset('css/kategoribuku.css') }}">
-<!-- Add the DataTable CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 
 <div class="container">
     <h2 class="mb-4">Kelola Kategori Buku</h2>
@@ -12,12 +14,9 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <!-- Add a class to the table -->
-    <table class="bukuTable table table-striped mt-4">
-    <table class="table table-striped mt-4">
+<table class="table table-striped mt-4 datatable">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Judul</th>
                 <th>Kategori</th>
                 <th>Aksi</th>
@@ -26,13 +25,6 @@
         <tbody>
             @foreach ($bukus as $buku)
             <tr>
-{{-- <<<<<<< HEAD
-                <td>{{ $buku->id }}</td>
-                <td>{{ $buku->NamaBuku }}</td>
-                <td>
-                    @foreach ($buku->kategoris as $kategori)
-                        <span class="badge bg-primary">{{ $kategori->NamaKategori }}</span>
-======= --}}
                 <td>{{ $buku->NamaBuku }}</td>
                 <td>
                     @foreach ($buku->kategoris as $kategori)
@@ -70,7 +62,8 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <button type="submit" class="btn">Simpan Perubahan</button>
+
+                                <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
                             </form>
                         </div>
                     </div>
@@ -81,15 +74,17 @@
     </table>
 </div>
 
-<!-- Add jQuery and DataTable JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<!-- jQuery (wajib) -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
-    // Initialize DataTable
-    $(document).ready(function() {
-        $('.bukuTable').DataTable();
+    $(document).ready(function () {
+        $('.datatable').DataTable();
     });
 </script>
+
 
 @endsection

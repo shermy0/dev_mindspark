@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-main{
-    background-color: white;
-    color: black;
-}
-=======
 /* Style untuk elemen utama */
 main {
     background-color: white;
@@ -11,15 +5,10 @@ main {
 }
 
 /* Style untuk teks di dalam tabel */
->>>>>>> preview
 td {
     color: black;
     font-weight: 400;
 }
-<<<<<<< HEAD
-.form-check-label, .form-label{
-    font-weight: 500;
-=======
 
 /* Style untuk label form */
 .form-check-label, .form-label {
@@ -65,5 +54,4 @@ td {
 .custom-btn:hover {
     background-color: #ffc107;
     color: black;
->>>>>>> preview
 }
