@@ -92,6 +92,15 @@ input[type="radio"] {
     color: #000;
 }
 
+.btn-baca{
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-baca:hover{
+    background-color: #88ddee;
+}
+
 .btn-pinjam:hover {
     background-color: #8de3ff;
     color: #000;

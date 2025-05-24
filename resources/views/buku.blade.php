@@ -41,7 +41,7 @@
                 <p class="publisher mb-2">{{ $buku->deskripsi }}</p><br>
                 <form action="{{ route('buku.baca', $buku->id) }}" method="POST">
     @csrf
-    <button type="submit" class="btn btn-primary">Baca</button>
+    <button type="submit" class="btn btn-baca">Baca</button>
 </form>
 
                 <br><br>

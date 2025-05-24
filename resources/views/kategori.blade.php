@@ -24,6 +24,28 @@
                     </form>
                 </div>
             </div><br>
+
+              <!--Carousel Image-->
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img src="{{ asset('storage/cover_buku/buku.jpg') }}" class="d-block w-100" alt="Buku 1">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="{{ asset('storage/cover_buku/buku2.jpg') }}" class="d-block w-100" alt="Buku 2">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="{{ asset('storage/cover_buku/buku3.jpg') }}" class="d-block w-100" alt="Buku 3">
+                    </div>
+                </div>
+            </div>
+
             <!-- Kategori -->
             <div class="col-md-12">
                 <div class="category-container mb-4">
