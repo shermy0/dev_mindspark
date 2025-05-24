@@ -27,7 +27,11 @@
             <div class="card-body">
                 <form action="{{ route('manage-buku.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    
+                <div class="mb-3">
+                    <label for="kode_buku" class="form-label">Kode Buku</label>
+                    <input type="text" class="form-control" id="kode_buku" name="kode_buku" value="{{ old('kode_buku') }}" required>
+                </div>
+
                     <div class="mb-3">
                         <label for="NamaBuku" class="form-label">Judul</label>
                         <input type="text" class="form-control" id="NamaBuku" name="NamaBuku" 

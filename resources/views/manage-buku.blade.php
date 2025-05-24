@@ -1,5 +1,4 @@
 @extends('master')
-<<<<<<< HEAD
 @section('konten')
 <link rel="stylesheet" href="{{ asset('css/manage.css') }}">
 
@@ -58,40 +57,7 @@
         </div>
     </div>
 </div>
-=======
 
-@section('konten')
-<link rel="stylesheet" href="{{ asset('css/manage.css') }}">
-
-<h3 class="mt-4">Kelola Buku</h3>
-<a href="{{ route('books.create') }}" class="btn btn-primary mb-3">Tambah Buku Baru</a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Judul</th>
-            <th>Penulis</th>
-            <th>Penerbit</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($books as $book)
-        <tr>
-            <td>{{ $book->NamaBuku }}</td>
-            <td>{{ $book->penulis }}</td>
-            <td>{{ $book->penerbit }}</td>
-            <td>
-                <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                <button class="btn btn-sm btn-danger" onclick="confirmDelete({{ $book->id }})">Hapus</button>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
->>>>>>> preview
-
-<!-- Modal Konfirmasi -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -100,11 +66,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-<<<<<<< HEAD
-                Anda yakin mau menghapus buku ini?
-=======
                 Anda yakin mau menghapus buku <strong class="text-primary">{{ $book->NamaBuku }}</strong>
->>>>>>> preview
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -118,30 +80,21 @@
     </div>
 </div>
 
-<<<<<<< HEAD
 <!-- jQuery & DataTables JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <!-- Inisialisasi DataTable -->
 <script>
-    $(document).ready(function() {
-        $('.datatable').DataTable();
-    });
-
-    function confirmDelete(id) {
-        const url = "{{ url('books') }}/" + id;
-        $('#deleteForm').attr('action', url);
-        $('#deleteModal').modal('show');
-=======
-<!-- JavaScript -->
-<script>
-    function confirmDelete(bookId) {
+        function confirmDelete(bookId) {
         let form = document.getElementById('deleteForm');
         form.action = "{{ route('manage-buku.destroy', '') }}/" + bookId; 
         let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         deleteModal.show();
->>>>>>> preview
     }
+
+    $(document).ready(function() {
+        $('.datatable').DataTable();
+    });
 </script>
 @endsection

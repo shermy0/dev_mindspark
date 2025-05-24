@@ -29,6 +29,13 @@
                     @method('PUT')
                     
                     <div class="mb-3">
+    <label for="kode_buku" class="form-label">Kode Buku</label>
+    <input type="text" class="form-control" id="kode_buku" name="kode_buku"
+           value="{{ old('kode_buku', $buku->kode_buku ?? '') }}" required>
+</div>
+
+
+                    <div class="mb-3">
                         <label for="NamaBuku" class="form-label">Judul</label>
                         <input type="text" class="form-control" id="NamaBuku" name="NamaBuku" 
                                value="{{ old('NamaBuku', $buku->NamaBuku) }}" required>
@@ -51,6 +58,7 @@
                         <textarea class="form-control" id="deskripsi" name="deskripsi" 
                                   rows="4" required>{{ old('deskripsi', $buku->deskripsi) }}</textarea>
                     </div>
+                    
 
                     <div class="mb-3">
                         <label class="form-label">Kategori</label>
@@ -81,7 +89,9 @@
                         @endif
                         <input type="file" class="form-control" id="CoverBuku" name="CoverBuku" 
                                accept="image/jpeg,image/png,image/jpg">
-                        <div class="form-text">Biarkan kosong jika tidak ingin mengubah cover</div>
+                        <div class="form-text">
+                            
+                            <p>Biarkan kosong jika tidak ingin mengubah cover</p></div>
                         <div id="imagePreview" class="mt-2" style="display: none;">
                             <img src="" alt="Preview" style="max-height: 200px;">
                         </div>

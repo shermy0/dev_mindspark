@@ -38,9 +38,13 @@ class ManageController extends Controller
         return view('books.create', compact('kategoris'));
     }
 
+    
+
     public function store(Request $request)
     {
+
         $request->validate([
+            'kode_buku' => 'required',
             'NamaBuku' => 'required',
             'penulis' => 'required',
             'penerbit' => 'required',
@@ -56,6 +60,7 @@ class ManageController extends Controller
         }
 
         $buku = Buku::create([
+            'kode_buku' => $request->kode_buku,
             'NamaBuku' => $request->NamaBuku,
             'penulis' => $request->penulis,
             'penerbit' => $request->penerbit,
